@@ -1,0 +1,297 @@
+/* The test lab. Plain and practical: paper panels on the same counter as the app.
+   It borrows the app's tokens but not the three recipe marks (blue pen, yellow highlight),
+   because those mean "we added this" and "the video left this out" and nothing here does. */
+
+.lab {
+  display: grid;
+  gap: 28px;
+  padding-bottom: 80px;
+}
+.lab__intro {
+  display: grid;
+  gap: 12px;
+  max-width: 46rem;
+  padding-top: 8px;
+}
+.lab__title {
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+.lab__lede {
+  color: var(--ink-soft);
+  font-size: 1.125rem;
+}
+.lab__panel {
+  display: grid;
+  gap: 16px;
+  padding: clamp(18px, 3.4vw, 36px);
+  border-radius: var(--r-sheet);
+  background: var(--paper);
+  box-shadow: var(--shadow-sheet);
+}
+.lab__h {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 800;
+}
+.lab__sub {
+  max-width: 46rem;
+  color: var(--ink-soft);
+}
+.lab__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.lab__status {
+  min-height: 1.55em;
+  font-weight: 600;
+}
+
+/* ---------- setup output ---------- */
+
+.lab__out {
+  display: grid;
+  gap: 10px;
+}
+.check {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  gap: 4px 10px;
+  padding: 12px 14px;
+  border: 2px solid var(--rule);
+  border-radius: var(--r-ctl);
+}
+.check--bad {
+  border-color: var(--err);
+}
+.check__mark {
+  font-weight: 800;
+}
+.check--good .check__mark {
+  color: var(--ok);
+}
+.check--bad .check__mark {
+  color: var(--err);
+}
+.check__title {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.check__detail {
+  grid-column: 2;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+  overflow-wrap: anywhere;
+}
+.check__next {
+  grid-column: 2;
+  font-weight: 600;
+}
+
+/* ---------- the test cases ---------- */
+
+.cases {
+  display: grid;
+  gap: 18px;
+  counter-reset: none;
+}
+.case {
+  display: grid;
+  gap: 14px 28px;
+  padding: 18px;
+  border: 2px solid var(--rule);
+  border-radius: var(--r-ctl);
+  grid-template-columns: minmax(0, 1fr);
+}
+.case[data-busy="true"] {
+  border-color: var(--ink);
+}
+.case__head {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 4px 10px;
+  align-items: start;
+}
+.case__num {
+  font-size: 1.6rem;
+  line-height: 1.1;
+  font-weight: 800;
+}
+.case__label {
+  display: block;
+  width: calc(100% + 16px);
+  min-height: 40px;
+  padding: 4px 8px;
+  margin: -4px -8px 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 1.1875rem;
+  font-weight: 800;
+  line-height: 1.25;
+  resize: none;
+  overflow: hidden;
+}
+.case__label:hover,
+.case__label:focus {
+  border-color: var(--rule-strong);
+}
+.case__hint {
+  grid-column: 2;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+.case__inputs {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.case__field {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+.case__field .field {
+  min-height: 48px;
+  font-weight: 400;
+}
+.case__field select.field {
+  width: 100%;
+}
+.case__problem {
+  color: var(--err);
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+.case__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.case__actions .btn {
+  min-height: 46px;
+  padding-inline: 18px;
+  font-size: 1rem;
+}
+.case__output {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.verdict {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  font-weight: 800;
+}
+.verdict__mark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+.verdict--good {
+  color: var(--ok);
+}
+.verdict--bad {
+  color: var(--err);
+}
+.verdict--plain {
+  color: var(--ink);
+}
+.verdict__text {
+  color: var(--ink);
+}
+.case__title {
+  color: var(--ink-soft);
+  font-style: italic;
+  overflow-wrap: anywhere;
+}
+.facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 2px 18px;
+  font-size: 0.9375rem;
+}
+.facts dt {
+  color: var(--ink-soft);
+}
+.facts dd {
+  overflow-wrap: anywhere;
+}
+.case__none {
+  color: var(--ink-soft);
+}
+.case__rate {
+  display: grid;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+.case__rate .field {
+  min-height: 46px;
+}
+
+@media (min-width: 900px) {
+  .case {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .case__head,
+  .case__rate {
+    grid-column: 1 / -1;
+  }
+  .case__rate {
+    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+    align-items: end;
+  }
+}
+
+/* ---------- summary ---------- */
+
+.lab__summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 12px;
+}
+.stat {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border: 2px solid var(--rule);
+  border-radius: var(--r-ctl);
+}
+.stat__value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+.stat__label {
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+.lab__md {
+  max-height: 22rem;
+  margin: 0;
+  padding: 14px 16px;
+  overflow: auto;
+  border: 2px solid var(--rule);
+  border-radius: var(--r-ctl);
+  background: color-mix(in srgb, var(--ink) 4%, var(--paper));
+  font: 0.8125rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre;
+}
+
+.btn__price {
+  font-weight: 500;
+  white-space: nowrap;
+}

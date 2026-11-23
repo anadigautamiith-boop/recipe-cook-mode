@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Test lab · Cookalong</title>
+    <meta name="description" content="Runs a set of real cooking videos through Cookalong and records what each one cost, how long it took and how good the recipe was." />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#e7eae4" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/css/lab.css" />
+    <script type="module" src="/js/testlab.js"></script>
+  </head>
+  <body>
+    <div class="wrap top">
+      <a class="brand" href="/">
+        Cookalong
+        <svg viewBox="0 0 120 8" preserveAspectRatio="none" aria-hidden="true"><path d="M2 5c9-5 14 3 24-1s14 3 24-1 14 3 24-1 14 2 20 0" /></svg>
+      </a>
+      <a class="btn btn--quiet top__back" href="/">Back to the app</a>
+    </div>
+
+    <main id="main" class="wrap lab">
+      <header class="lab__intro">
+        <h1 class="lab__title" tabindex="-1">Test lab</h1>
+        <p class="lab__lede">
+          This page sends a set of real cooking videos through the live app and records what each one cost, how long it
+          took and what came out. A computer can count steps. Only a cook can say whether a recipe works, so each video
+          has a box for your rating.
+        </p>
+        <p class="lab__lede" id="recorded-note" hidden></p>
+      </header>
+
+      <section class="lab__panel" aria-labelledby="setup-title">
+        <h2 class="lab__h" id="setup-title">1. Check the setup</h2>
+        <p class="lab__sub">Run these once after you add the key. They tell you what is wrong before you spend anything on a full run.</p>
+        <div class="lab__buttons" id="setup-buttons"></div>
+        <div id="setup-out" class="lab__out" aria-live="polite"></div>
+      </section>
+
+      <section class="lab__panel" aria-labelledby="rows-title">
+        <h2 class="lab__h" id="rows-title">2. The test videos</h2>
+        <p class="lab__sub">
+          Each run is a real request, so it costs a little and counts toward the hourly limit. Paste your own links
+          over any of these, and rename a row if the video is not what its name says.
+        </p>
+        <div class="lab__buttons">
+          <button class="btn btn--primary" type="button" id="run-all">Run all with a link</button>
+          <button class="btn btn--quiet" type="button" id="stop" hidden>Stop after this one</button>
+        </div>
+        <p class="lab__status" id="batch-status" role="status"></p>
+        <ol class="cases" id="cases"></ol>
+      </section>
+
+      <section class="lab__panel" aria-labelledby="sum-title">
+        <h2 class="lab__h" id="sum-title">3. The results</h2>
+        <div id="summary" class="lab__summary"></div>
+        <div class="lab__buttons">
+          <button class="btn" type="button" id="copy-md">Copy results table</button>
+          <button class="btn btn--quiet" type="button" id="download-json">Download everything (JSON)</button>
+          <button class="btn btn--quiet" type="button" id="clear">Clear my results</button>
+        </div>
+        <p class="lab__status" id="copy-status" role="status"></p>
+        <pre class="lab__md" id="md" tabindex="0" aria-label="Results table in Markdown"></pre>
+      </section>
+    </main>
+  </body>
+</html>
