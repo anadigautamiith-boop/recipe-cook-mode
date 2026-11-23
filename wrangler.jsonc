@@ -1,0 +1,26 @@
+{
+  // Cloudflare Worker that serves the static site in ./public and the /api/* routes.
+  // The Worker name must match the name of the Worker you create in the Cloudflare dashboard.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "recipe-cook-mode",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-16",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // Plain settings (not secrets). The only secret, OPENROUTER_API_KEY, is added in the
+  // Cloudflare dashboard (Settings > Variables and Secrets) and never lives in this repo.
+  "vars": {
+    // Models are tried in order. The first must accept YouTube links as video input.
+    "VIDEO_MODELS": "google/gemini-2.5-flash,google/gemini-2.5-flash-lite",
+    // Models used when we only have text (Instagram caption or pasted text).
+    "TEXT_MODELS": "google/gemini-2.5-flash-lite,google/gemini-2.5-flash",
+    // Per visitor limits for fresh (not cached) recipes. Best effort, per server instance.
+    "RATE_LIMIT_PER_HOUR": "12",
+    "DAILY_CAP": "300"
+  }
+}

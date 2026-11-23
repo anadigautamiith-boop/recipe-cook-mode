@@ -1,0 +1,20 @@
+{
+  "name": "recipe-cook-mode",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cookalong: paste a YouTube or Instagram recipe video link and get a recipe a first-time cook can follow.",
+  "scripts": {
+    "test": "node --test",
+    "dev": "node scripts/dev-server.mjs",
+    "dev:mock": "MOCK=1 node scripts/dev-server.mjs",
+    "dev:worker": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.166.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
