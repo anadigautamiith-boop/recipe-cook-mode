@@ -32,9 +32,11 @@ function payload(extra = {}) {
   };
 }
 
-test('the default test set has at least five links ready to run and is labelled for what it tests', () => {
+test('the default test set has links ready to run, leaves the rest for the tester, and is labelled for what it tests', () => {
+  // Four public videos are ready; the easy, long and two Instagram rows need the tester's own links.
   const ready = DEFAULT_ROWS.filter((r) => r.url);
-  assert.ok(ready.length >= 5);
+  assert.ok(ready.length >= 4);
+  assert.equal(DEFAULT_ROWS.find((r) => r.id === 'easy').url, '', 'no default link for a video that might go private');
   assert.equal(new Set(DEFAULT_ROWS.map((r) => r.id)).size, DEFAULT_ROWS.length);
   for (const r of DEFAULT_ROWS) {
     assert.ok(r.label && r.hint, `${r.id} needs a label and a hint`);
@@ -117,7 +119,7 @@ test('median handles empty, odd and even lists', () => {
 });
 
 function rowsWithRuns() {
-  const rows = normalizeRows([]);
+  const rows = normalizeRows([{ id: 'easy', url: 'https://www.youtube.com/watch?v=PUP7U5vTMM0' }]);
   const ok = (cost, ms, extra) => runFromPayload({ ...payload(), meta: { ...payload().meta, cost_usd: cost, ms, ...extra } }, { now: NOW });
   rows[0].run = ok(0.01, 20000);
   rows[1].run = ok(0.03, 40000);

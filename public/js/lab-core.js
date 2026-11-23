@@ -23,8 +23,8 @@ export const DEFAULT_ROWS = [
   {
     id: 'easy',
     label: 'Easy: one dish, clear voice-over',
-    hint: 'One dish and a clear voice-over. The baseline to compare everything else with.',
-    url: 'https://www.youtube.com/watch?v=PUP7U5vTMM0',
+    hint: 'Paste a public cooking video of 3 to 6 minutes: one dish and someone talking through it. The baseline to compare everything else with. Check it plays without signing in.',
+    url: '',
     expect: ['recipe'],
   },
   {
@@ -57,8 +57,8 @@ export const DEFAULT_ROWS = [
   },
   {
     id: 'long',
-    label: 'Long: 20 minutes or more',
-    hint: 'Paste a long cooking video. It should finish, or fail honestly with a "too long" message. A half-made recipe is a failure.',
+    label: 'Long: 12 minutes or more',
+    hint: 'Paste a long cooking video. It should finish, or fail honestly with a clear message. A half-made recipe is a failure.',
     url: '',
     expect: ['recipe', 'error:too_long'],
   },

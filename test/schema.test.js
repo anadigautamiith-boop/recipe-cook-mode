@@ -158,3 +158,17 @@ test('summarizeResult counts what the Test Lab reports', () => {
   assert.deepEqual(s, { recipes: 1, ingredients: 7, ingredients_stated: 5, steps: 8, timers: 3, cues: 5, gaps: 3 });
   assert.equal(summarizeResult({ recipes: [] }).steps, 0);
 });
+
+test('summarizeResult adds up every dish, not just the first one', () => {
+  const one = normalizeResult(clone(sampleRecipe));
+  const two = { ...one, recipes: [one.recipes[0], one.recipes[0]] };
+  assert.deepEqual(summarizeResult(two), {
+    recipes: 2,
+    ingredients: 14,
+    ingredients_stated: 10,
+    steps: 16,
+    timers: 6,
+    cues: 10,
+    gaps: 6,
+  });
+});

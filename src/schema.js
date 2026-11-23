@@ -254,17 +254,20 @@ export function normalizeResult(raw, { platform = 'youtube' } = {}) {
   };
 }
 
-/** Small counts used in logs and the test table. */
+/**
+ * Small counts used in logs and the test table, added up across every dish in the answer
+ * (the first live run counted only the first dish of a three-dish video).
+ */
 export function summarizeResult(result) {
-  const first = result.recipes[0];
-  if (!first) return { recipes: 0, ingredients: 0, ingredients_stated: 0, steps: 0, timers: 0, cues: 0, gaps: 0 };
+  const recipes = Array.isArray(result.recipes) ? result.recipes : [];
+  const total = (count) => recipes.reduce((sum, recipe) => sum + count(recipe), 0);
   return {
-    recipes: result.recipes.length,
-    ingredients: first.ingredients.length,
-    ingredients_stated: first.ingredients.filter((i) => i.stated).length,
-    steps: first.steps.length,
-    timers: first.steps.filter((s) => s.timer_seconds).length,
-    cues: first.steps.filter((s) => s.done_cue).length,
-    gaps: first.gaps.length,
+    recipes: recipes.length,
+    ingredients: total((r) => r.ingredients.length),
+    ingredients_stated: total((r) => r.ingredients.filter((i) => i.stated).length),
+    steps: total((r) => r.steps.length),
+    timers: total((r) => r.steps.filter((s) => s.timer_seconds).length),
+    cues: total((r) => r.steps.filter((s) => s.done_cue).length),
+    gaps: total((r) => r.gaps.length),
   };
 }
