@@ -20,9 +20,11 @@ export const ROUTES = Object.freeze({
   text: 'pasted-text',
 });
 
-// The first live runs showed the main model running out of room on videos of more than a few
-// minutes at 8,000 tokens (it spends some of them thinking), so the cheaper model had to redo the job.
-const VIDEO_MAX_TOKENS = 10_000;
+// The first live runs showed the main model hitting the 8,000-token limit on three of five videos
+// (the final recipe needs about 3,000 of them; the rest goes on thinking), so the cheaper model had
+// to redo the job and the visitor paid for the video twice. You only pay for the tokens used, so
+// a generous limit costs nothing on the runs that finish early.
+const VIDEO_MAX_TOKENS = 16_000;
 const VIDEO_TIMEOUT_MS = 120_000;
 const TEXT_MAX_TOKENS = 5000;
 const MIN_CAPTION_CHARS = 40;
@@ -79,7 +81,8 @@ async function askForRecipe({ apiKey, models, messages, maxTokens, timeoutMs, pl
       return { result, reply, usage, notes };
     } catch (err) {
       cutOff = reply.finishReason === 'length';
-      notes.push(`${reply.requested}: unreadable reply (${err.message}${cutOff ? '; cut off' : ''})`);
+      const used = Number.isFinite(reply.usage.completion) ? ` after ${reply.usage.completion} output tokens` : '';
+      notes.push(`${reply.requested}: unreadable reply (${err.message}${cutOff ? `; cut off${used}` : ''})`);
       const at = remaining.indexOf(reply.requested);
       remaining = at >= 0 ? remaining.slice(at + 1) : [];
     }

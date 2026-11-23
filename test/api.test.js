@@ -185,6 +185,21 @@ test('output that was cut off says the video is too long', async () => {
   assert.equal(body.error.code, 'too_long');
 });
 
+test('a cut-off first attempt is recorded with how much it wrote, and the next model finishes the job', async () => {
+  const f = sequence([
+    completion('{"is_recipe": true, "recipes": [{"title": "Big", "steps": [{"text": "Do', {
+      finish: 'length',
+      usage: { prompt_tokens: 100_000, completion_tokens: 16_000, total_tokens: 116_000, cost: 0.05 },
+    }),
+    completion(sampleRecipe, { model: 'google/gemini-2.5-flash-lite' }),
+  ]);
+  const { app } = makeApp(f);
+  const { res, body } = await run(app, post('/api/recipe', { url: YT }));
+  assert.equal(res.status, 200);
+  assert.equal(f.calls[0].body.max_tokens, 16_000);
+  assert.ok(body.meta.fallbacks.some((n) => /cut off after 16000 output tokens/.test(n)), body.meta.fallbacks.join(' | '));
+});
+
 test('an unavailable first model falls back to the second', async () => {
   const f = sequence([
     upstreamError(404, 'No endpoints found for google/gemini-2.5-flash'),
