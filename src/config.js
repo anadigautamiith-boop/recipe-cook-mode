@@ -17,7 +17,7 @@ export function readConfig(env = {}) {
     videoModels: parseModelList(env.VIDEO_MODELS, DEFAULT_VIDEO_MODELS),
     textModels: parseModelList(env.TEXT_MODELS, DEFAULT_TEXT_MODELS),
     perHour: positiveInt(env.RATE_LIMIT_PER_HOUR, 12),
-    dailyCap: positiveInt(env.DAILY_CAP, 300),
+    dailyCap: positiveInt(env.DAILY_CAP, 120),
   };
 }
 

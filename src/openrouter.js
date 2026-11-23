@@ -91,7 +91,7 @@ export function classifyUpstream(status, message) {
   ) {
     return new AppError('video_unreadable', "We couldn't open that video.", {
       status: 422,
-      hint: 'It may be private, age-restricted, a live stream, or blocked. Try another link, or paste the recipe text.',
+      hint: 'It may be private or unlisted, age-restricted, a live stream, or blocked. Try another public link, or paste the recipe text.',
       canPaste: true,
       detail: message,
     });

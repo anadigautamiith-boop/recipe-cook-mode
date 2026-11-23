@@ -19,8 +19,10 @@
     "VIDEO_MODELS": "google/gemini-2.5-flash,google/gemini-2.5-flash-lite",
     // Models used when we only have text (Instagram caption or pasted text).
     "TEXT_MODELS": "google/gemini-2.5-flash-lite,google/gemini-2.5-flash",
-    // Per visitor limits for fresh (not cached) recipes. Best effort, per server instance.
+    // Limits on fresh (not cached) recipes: per visitor per hour, and per day for the whole site.
+    // At roughly 3 to 6 cents a recipe, 120 a day is the most the $20 key could lose to one bad day.
+    // Best effort: the counts live in each server instance's memory, so they are a brake, not a wall.
     "RATE_LIMIT_PER_HOUR": "12",
-    "DAILY_CAP": "300"
+    "DAILY_CAP": "120"
   }
 }
