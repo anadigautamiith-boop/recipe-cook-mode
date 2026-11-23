@@ -1,6 +1,6 @@
 {
   "name": "recipe-cook-mode",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Cookalong: paste a YouTube or Instagram recipe video link and get a recipe a first-time cook can follow.",
