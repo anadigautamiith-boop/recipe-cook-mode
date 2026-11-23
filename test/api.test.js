@@ -154,7 +154,7 @@ test('a video that is not a recipe is reported plainly and is not cached', async
 test('a model that answers with broken JSON is skipped and the next model is used', async () => {
   const f = sequence([
     completion('Sorry, I cannot do that as JSON'),
-    completion(sampleRecipe, { model: 'google/gemini-2.5-flash-lite', usage: { prompt_tokens: 800, completion_tokens: 400, total_tokens: 1200, cost: 0.0004 } }),
+    completion(sampleRecipe, { model: 'google/gemini-2.5-flash-lite', usage: { prompt_tokens: 100_000, completion_tokens: 400, total_tokens: 100_400, cost: 0.0004 } }),
   ]);
   const { app } = makeApp(f);
   const { res, body } = await run(app, post('/api/recipe', { url: YT }));
@@ -337,6 +337,62 @@ test('a daily cap protects the whole budget', async () => {
   assert.equal(second.body.error.code, 'daily_cap');
 });
 
+// ---- a model that never received the video -------------------------------------------------
+// Found on the live app: a private video came back as a confident, invented recipe. The usage
+// report gave it away (1,103 prompt tokens, which is our instructions and nothing else).
+
+const NEVER_SAW_VIDEO = { prompt_tokens: 1_103, completion_tokens: 4_459, total_tokens: 5_562, cost: 0.0115 };
+
+test('a reply that never received the video is refused, not shown as a recipe', async () => {
+  const f = sequence([completion(sampleRecipe, { usage: NEVER_SAW_VIDEO })]);
+  const { app } = makeApp(f);
+  const first = await run(app, post('/api/recipe', { url: YT }));
+  assert.equal(first.res.status, 422);
+  assert.equal(first.body.error.code, 'video_unreadable');
+  assert.equal(first.body.error.message, "We couldn't open that video.");
+  assert.equal(first.body.error.can_paste, true);
+  assert.equal(f.calls.length, 2, 'the second model is tried before giving up');
+  assert.ok(!JSON.stringify(first.body).includes('Tomato and Egg Stir-Fry'), 'the invented recipe is never shown');
+
+  await run(app, post('/api/recipe', { url: YT }));
+  assert.equal(f.calls.length, 4, 'a refused answer is not cached');
+});
+
+test('if the first model never saw the video but the next one did, the next one is used', async () => {
+  const f = sequence([
+    completion(sampleRecipe, { usage: NEVER_SAW_VIDEO }),
+    completion(sampleRecipe, { model: 'google/gemini-2.5-flash-lite' }),
+  ]);
+  const { app } = makeApp(f);
+  const { res, body } = await run(app, post('/api/recipe', { url: YT }));
+  assert.equal(res.status, 200);
+  assert.equal(body.meta.model, 'google/gemini-2.5-flash-lite');
+  assert.ok(body.meta.fallbacks.some((n) => /video was not read/.test(n)));
+});
+
+test('the check does not apply to pasted text, whose prompts are small', async () => {
+  const small = { prompt_tokens: 800, completion_tokens: 400, total_tokens: 1_200, cost: 0.0004 };
+  const f = sequence([completion(sampleRecipe, { model: 'google/gemini-2.5-flash-lite', usage: small })]);
+  const { app } = makeApp(f);
+  const text = 'Tomato egg stir fry. 4 eggs, 3 tomatoes, 1 tsp sugar, salt. Beat eggs, fry, set aside. Cook tomatoes, add eggs.';
+  const { res } = await run(app, post('/api/recipe', { text }));
+  assert.equal(res.status, 200);
+});
+
+test('step timestamps later than the video can be are hidden, because none can be trusted', async () => {
+  // The numbers are from a real run: a video of about 10 minutes whose steps were put at 531 s and 3,115 s.
+  const wrong = structuredClone(sampleRecipe);
+  const times = [531, 534, 3115, 4171, 4184, 4190, 4195, 4199];
+  wrong.recipes[0].steps.forEach((step, i) => (step.video_t = times[i] ?? null));
+  const usage = { prompt_tokens: 180_155, completion_tokens: 6_000, total_tokens: 186_155, cost: 0.03 };
+  const f = sequence([completion(wrong, { usage })]);
+  const { app } = makeApp(f);
+  const { res, body } = await run(app, post('/api/recipe', { url: YT }));
+  assert.equal(res.status, 200);
+  assert.ok(body.result.recipes[0].steps.every((step) => step.video_t === null));
+  assert.ok(body.meta.fallbacks.some((n) => /timestamps hidden/.test(n)));
+});
+
 // ---- diagnose --------------------------------------------------------------------------------
 
 test('diagnose shows settings without spending anything or revealing the key', async () => {
@@ -372,6 +428,14 @@ test('diagnose?video=1 sends a sample YouTube clip to each video model', async (
   assert.equal(body.ok, true);
   const sent = f.calls[0].body.messages[0].content.find((p) => p.type === 'video_url');
   assert.equal(sent.video_url.url, 'https://www.youtube.com/watch?v=jNQXAC9IVRw');
+});
+
+test('diagnose?video=1 fails a model that answers without ever receiving the clip', async () => {
+  const f = sequence([completion('A man talks about elephants.', { usage: { prompt_tokens: 40, completion_tokens: 12, total_tokens: 52, cost: 0.00001 } })]);
+  const { app } = makeApp(f);
+  const { body } = await run(app, get('/api/diagnose?video=1'));
+  assert.equal(body.ok, false);
+  assert.ok(body.checks.every((c) => !c.ok && c.problem === 'video_unreadable'));
 });
 
 test('diagnose says which check failed and why, in terms the owner can act on', async () => {

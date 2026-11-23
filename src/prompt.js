@@ -47,7 +47,7 @@ const SHAPE = `{
           "done_cue": string | null,      // what it should look, smell or sound like when this step is done
           "done_cue_added": boolean,      // true if the cue is your own explanation, false if the source says or shows it
           "terms": [ { "term": string, "meaning": string } ],   // up to 2 cooking words a beginner may not know
-          "video_t": number | null        // seconds from the start where this step happens (approximate)
+          "video_t": number | null        // whole seconds from the start of the video where this step happens (5:31 is 331, not 531); approximate
         }
       ],
       "tips": string[],                   // up to 3, only tips the source gives

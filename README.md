@@ -27,10 +27,10 @@ Needs Node 20 or newer.
 ```bash
 npm install
 npm run dev:mock        # pretend AI, no key, no cost: open http://localhost:8787
-npm test                # 121 tests, all on a fake network
+npm test                # 139 tests, all on a fake network
 ```
 
-In mock mode a few special video ids trigger the awkward cases on purpose: `aaaaaaaaaaa` is not a recipe, `bbbbbbbbbbb` is private, `ccccccccccc` makes the first model return broken JSON, `ddddddddddd` has two dishes, `eeeeeeeeeee` is slow. An Instagram code containing `Cap` has a readable caption; any other does not.
+In mock mode a few special video ids trigger the awkward cases on purpose: `aaaaaaaaaaa` is not a recipe, `bbbbbbbbbbb` is private, `ccccccccccc` makes the first model return broken JSON, `ddddddddddd` has two dishes, `eeeeeeeeeee` is slow, `fffffffffff` is a video the AI never received (the app must refuse the recipe it invents). An Instagram code containing `Cap` has a readable caption; any other does not.
 
 To use the real AI locally, copy `.dev.vars.example` to `.dev.vars`, put your OpenRouter key in it (that file is git-ignored) and run `npm run dev:worker`.
 
@@ -59,7 +59,7 @@ src/                    the Worker
   openrouter.js         the AI client: model fallback, timeouts, cost taken from the reply
   prompt.js, schema.js  what we ask the AI, and a strict checker for what it sends back
   instagram.js          reads a public caption, never logs in, never uses cookies
-test/                   121 tests on a fake network (no key, no internet)
+test/                   139 tests on a fake network (no key, no internet)
 scripts/                the pretend-AI development server
 submission/             the write-up, test set and build log
 ```
@@ -91,7 +91,8 @@ These are estimates worked out from list prices. The test lab records the real f
 Nothing in this list is hidden in the app; it is here so you know where the edges are.
 
 - Only **public** YouTube videos work. Private and unlisted videos cannot be opened by the model, and the app says so.
-- A very long video may fail with a "too long" message instead of a partial recipe.
+- Length: in live tests a video of just over 12 minutes finished (about two minutes), and videos over 20 minutes returned an error message. The app says so instead of showing a partial recipe, but there is no promise for anything longer than about 15 minutes.
+- Step timestamps come from the AI and are sometimes missing or wrong, so the app hides them when they cannot fit the video's length. Treat the "watch this step" links as a convenience.
 - Instagram is best effort. If Instagram changes its public pages, the caption reader stops finding captions and the app falls back to asking for pasted text.
 - The recipe cache and the rate limits live in each Worker instance's memory. They are a brake, not a wall: a restart clears them, and two instances do not share them. A hard limit would need Cloudflare KV or a Durable Object.
 - The free plan gives a Worker about 10 milliseconds of processor time per request, so the Worker does no heavy parsing. It waits for OpenRouter, which does not count against that time.

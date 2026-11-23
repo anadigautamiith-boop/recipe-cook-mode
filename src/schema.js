@@ -116,12 +116,47 @@ function normalizeTemperature(raw) {
   return { value, unit };
 }
 
+// ---- "done when" hints that only repeat the step ------------------------------------------
+
+const CUE_FILLER = new Set([
+  'the', 'and', 'are', 'was', 'were', 'should', 'will', 'would', 'can', 'could', 'may', 'might',
+  'that', 'this', 'these', 'those', 'then', 'when', 'until', 'with', 'from', 'into', 'onto', 'over',
+  'under', 'each', 'has', 'have', 'had', 'been', 'being', 'its', 'you', 'your', 'not', 'for', 'just',
+  'all', 'also', 'very', 'slightly', 'about', 'around', 'well', 'now', 'done',
+]);
+
+// A rough stem, good enough to match "added" with "add" and "shimmering" with "shimmer".
+const stem = (word) => word.replace(/(ing|ed|es|s|e)$/, '');
+
+function contentStems(text) {
+  return String(text)
+    .toLowerCase()
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter((w) => w.length > 2 && !CUE_FILLER.has(w))
+    .map(stem)
+    .filter((w) => w.length > 1);
+}
+
+/**
+ * A "done when" hint is meant to tell a beginner something the step does not: what to look,
+ * smell or listen for. If almost every word of it is already in the step, such as
+ * "Rice is added to the pan." under "Add the cooked rice to the pan", it only adds noise.
+ */
+export function restatesStep(cue, stepText) {
+  const cueWords = contentStems(cue);
+  if (cueWords.length === 0) return true;
+  const stepWords = new Set(contentStems(stepText));
+  const shared = cueWords.filter((w) => stepWords.has(w)).length;
+  return shared / cueWords.length >= 0.8;
+}
+
 function normalizeStep(raw, platform) {
   if (typeof raw === 'string') raw = { text: raw };
   if (!raw || typeof raw !== 'object') return null;
   const text = str(raw.text ?? raw.instruction, MAX.step);
   if (!text) return null;
-  const doneCue = strOrNull(raw.done_cue, MAX.cue);
+  const rawCue = strOrNull(raw.done_cue, MAX.cue);
+  const doneCue = rawCue && !restatesStep(rawCue, text) ? rawCue : null;
   const terms = list(raw.terms)
     .slice(0, 3)
     .map((t) => ({ term: str(t?.term, MAX.term), meaning: str(t?.meaning, MAX.meaning) }))
@@ -147,6 +182,26 @@ function cleanTimestamps(steps) {
   const distinct = new Set(known).size > 1 || known.length <= 1;
   if (!increasing || !distinct) steps.forEach((s) => (s.video_t = null));
   return steps;
+}
+
+/**
+ * Step timestamps are the AI's own sense of where it is in the video, and it sometimes gets
+ * them wrong (for example by writing 5:31 as 531). When any step sits later than the video can
+ * be long, none of the timestamps can be trusted, so none are kept.
+ * Returns how many were removed.
+ */
+export function dropImplausibleTimestamps(result, latestSecond) {
+  if (!Number.isFinite(latestSecond)) return 0;
+  const steps = result.recipes.flatMap((r) => r.steps);
+  if (!steps.some((step) => step.video_t != null && step.video_t > latestSecond)) return 0;
+  let removed = 0;
+  for (const step of steps) {
+    if (step.video_t != null) {
+      step.video_t = null;
+      removed += 1;
+    }
+  }
+  return removed;
 }
 
 function normalizeRecipe(raw, platform) {

@@ -5,6 +5,7 @@
 //   ccccccccccc  -> the first model answers badly and the second one rescues it
 //   ddddddddddd  -> two dishes in one video
 //   eeeeeeeeeee  -> a slow video (8 seconds)
+//   fffffffffff  -> a video the AI never received, so it invents a recipe (the app must refuse it)
 // Instagram links whose code contains "Cap" have a readable caption; the rest hit a login wall.
 
 import { readFileSync } from 'node:fs';
@@ -16,7 +17,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 
-function completion(content, model, cost = 0.0123) {
+function completion(content, model, cost = 0.0123, promptTokens = 100_000) {
   return {
     id: 'gen-mock',
     model,
@@ -27,7 +28,7 @@ function completion(content, model, cost = 0.0123) {
         message: { role: 'assistant', content: typeof content === 'string' ? content : JSON.stringify(content) },
       },
     ],
-    usage: { prompt_tokens: 61_000, completion_tokens: 2_400, total_tokens: 63_400, cost },
+    usage: { prompt_tokens: promptTokens, completion_tokens: 2_400, total_tokens: promptTokens + 2_400, cost },
   };
 }
 
@@ -97,6 +98,8 @@ export function createMockFetch({ delayMs = 900 } = {}) {
         return json(completion('Here is your recipe! {"is_recipe": true, "recipes": [ {"title": ', model, 0.004));
       }
       if (id === 'ddddddddddd') return json(completion(twoDishes(), model, 0.0311));
+      // Only our instructions were billed (1,103 tokens): the AI never saw the video.
+      if (id === 'fffffffffff') return json(completion(sample, model, 0.0015, 1_103));
       return json(completion(sample, model));
     }
 

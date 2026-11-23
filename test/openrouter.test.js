@@ -26,7 +26,7 @@ test('sends the key, asks for usage and JSON, and returns text, model and cost',
   assert.equal(out.text, '{"a":1}');
   assert.equal(out.requested, 'm1');
   assert.equal(out.usage.cost, 0.0012);
-  assert.equal(out.usage.total, 1500);
+  assert.equal(out.usage.total, 100_500);
 });
 
 test('jsonMode:false leaves out the JSON setting', async () => {

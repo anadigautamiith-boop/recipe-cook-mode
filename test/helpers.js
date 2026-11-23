@@ -25,7 +25,7 @@ export function completion(content, { model = 'google/gemini-2.5-flash', usage, 
         message: { role: 'assistant', content: typeof content === 'string' ? content : JSON.stringify(content) },
       },
     ],
-    usage: usage ?? { prompt_tokens: 1000, completion_tokens: 500, total_tokens: 1500, cost: 0.0012 },
+    usage: usage ?? { prompt_tokens: 100_000, completion_tokens: 500, total_tokens: 100_500, cost: 0.0012 },
   };
 }
 

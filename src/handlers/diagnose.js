@@ -9,6 +9,7 @@ import { AppError } from '../errors.js';
 import { json } from '../http.js';
 import { chatComplete } from '../openrouter.js';
 import { clientIp, readConfig } from '../config.js';
+import { videoWasRead } from '../video-check.js';
 
 // The first video ever uploaded to YouTube: 19 seconds, public, and not going anywhere.
 const SAMPLE_VIDEO = 'https://www.youtube.com/watch?v=jNQXAC9IVRw';
@@ -17,7 +18,7 @@ function unique(list) {
   return [...new Set(list)];
 }
 
-async function check({ name, model, messages, apiKey, fetchImpl, timeoutMs = 60_000, maxTokens = 300 }) {
+async function check({ name, model, messages, apiKey, fetchImpl, timeoutMs = 60_000, maxTokens = 300, minPromptTokens = null }) {
   const started = Date.now();
   try {
     const reply = await chatComplete({
@@ -29,6 +30,18 @@ async function check({ name, model, messages, apiKey, fetchImpl, timeoutMs = 60_
       fetchImpl,
       jsonMode: false,
     });
+    // The answer can sound right even when the video never arrived, so check what was billed.
+    if (minPromptTokens != null && videoWasRead(reply.usage.prompt, minPromptTokens) === false) {
+      return {
+        name,
+        model,
+        ok: false,
+        ms: Date.now() - started,
+        problem: 'video_unreadable',
+        message: 'The AI answered, but it never received the video.',
+        detail: `only ${reply.usage.prompt} prompt tokens were used, which is too few for a video`,
+      };
+    }
     return {
       name,
       model,
@@ -115,6 +128,7 @@ export async function handleDiagnose({ request, env, deps, version }) {
           apiKey: config.apiKey,
           fetchImpl: deps.fetchImpl,
           timeoutMs: 80_000,
+          minPromptTokens: 1000, // a 19-second clip alone is about 5,500
           messages: [
             {
               role: 'user',

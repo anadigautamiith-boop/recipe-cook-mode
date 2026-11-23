@@ -3,6 +3,7 @@
 // model rejects them, and turns every failure into an error a visitor can understand.
 
 import { AppError } from './errors.js';
+import { videoUnreadableError } from './video-check.js';
 
 export const OPENROUTER_BASE = 'https://openrouter.ai/api/v1';
 
@@ -80,7 +81,7 @@ export function classifyUpstream(status, message) {
   if (/context|too many tokens|token limit|maximum.{0,20}length|too long|exceeds/.test(m)) {
     return new AppError('too_long', 'That video is too long for us to read in one go.', {
       status: 422,
-      hint: 'Try a video under about 30 minutes, or one that shows a single recipe.',
+      hint: 'Try a shorter video (under about 15 minutes works best), or one that shows a single recipe.',
       canPaste: true,
       detail: message,
     });
@@ -89,12 +90,7 @@ export function classifyUpstream(status, message) {
     status === 403 ||
     /video|youtube|private|unavailable|not accessible|(cannot|can't|could not|unable to) (fetch|access|open|download|retrieve|load)|file_uri|invalid.{0,10}url|permission/.test(m)
   ) {
-    return new AppError('video_unreadable', "We couldn't open that video.", {
-      status: 422,
-      hint: 'It may be private or unlisted, age-restricted, a live stream, or blocked. Try another public link, or paste the recipe text.',
-      canPaste: true,
-      detail: message,
-    });
+    return videoUnreadableError(message);
   }
   return new AppError('upstream_error', 'The AI service had a problem.', {
     status: 502,

@@ -10,7 +10,8 @@ import { AppError } from './errors.js';
 import { platformLabel } from '../public/js/shared/urls.js';
 import { buildTextMessages, buildVideoMessages } from './prompt.js';
 import { chatComplete } from './openrouter.js';
-import { extractJson, normalizeResult, summarizeResult } from './schema.js';
+import { dropImplausibleTimestamps, extractJson, normalizeResult, summarizeResult } from './schema.js';
+import { latestPlausibleSecond, videoUnreadableError, videoWasRead } from './video-check.js';
 import { fetchInstagramCaption } from './instagram.js';
 
 export const ROUTES = Object.freeze({
@@ -19,7 +20,10 @@ export const ROUTES = Object.freeze({
   text: 'pasted-text',
 });
 
-const VIDEO_MAX_TOKENS = 8000;
+// The first live runs showed the main model running out of room on videos of more than a few
+// minutes at 8,000 tokens (it spends some of them thinking), so the cheaper model had to redo the job.
+const VIDEO_MAX_TOKENS = 10_000;
+const VIDEO_TIMEOUT_MS = 120_000;
 const TEXT_MAX_TOKENS = 5000;
 const MIN_CAPTION_CHARS = 40;
 const MAX_TEXT_CHARS = 20_000;
@@ -40,18 +44,38 @@ function addUsage(total, usage) {
  * Ask the models in order until one gives an answer we can read.
  * A model that answers with broken JSON is skipped and the next one is tried.
  */
-async function askForRecipe({ apiKey, models, messages, maxTokens, platform, fetchImpl }) {
+async function askForRecipe({ apiKey, models, messages, maxTokens, timeoutMs, platform, fetchImpl }) {
   let remaining = [...models];
+  let attempts = 0;
+  let blind = 0;
   const usage = { prompt: 0, completion: 0, total: 0, cost: 0, costKnown: false };
   const notes = [];
   let cutOff = false;
 
   while (remaining.length > 0) {
-    const reply = await chatComplete({ apiKey, models: remaining, messages, maxTokens, fetchImpl });
+    const reply = await chatComplete({ apiKey, models: remaining, messages, maxTokens, timeoutMs, fetchImpl });
     addUsage(usage, reply.usage);
     notes.push(...reply.tried);
+    attempts += 1;
+
+    // A model that never received the video will still answer, by inventing a recipe. Refuse it.
+    if (platform === 'youtube' && videoWasRead(reply.usage.prompt) === false) {
+      blind += 1;
+      notes.push(`${reply.requested}: the video was not read (only ${reply.usage.prompt} prompt tokens were used)`);
+      const at = remaining.indexOf(reply.requested);
+      remaining = at >= 0 ? remaining.slice(at + 1) : [];
+      continue;
+    }
+
     try {
       const result = normalizeResult(extractJson(reply.text), { platform });
+      if (platform === 'youtube') {
+        const latest = latestPlausibleSecond(reply.usage.prompt);
+        const removed = dropImplausibleTimestamps(result, latest);
+        if (removed > 0) {
+          notes.push(`${reply.requested}: ${removed} step timestamps hidden because some were later than the video can be`);
+        }
+      }
       return { result, reply, usage, notes };
     } catch (err) {
       cutOff = reply.finishReason === 'length';
@@ -61,6 +85,9 @@ async function askForRecipe({ apiKey, models, messages, maxTokens, platform, fet
     }
   }
 
+  if (blind > 0 && blind === attempts) {
+    throw videoUnreadableError(notes.join(' | ').slice(0, 600));
+  }
   if (cutOff) {
     throw new AppError('too_long', 'That video has more in it than we can write up in one go.', {
       status: 422,
@@ -91,6 +118,7 @@ export async function runRecipe({ parsed, text, lang, apiKey, videoModels, textM
   let messages;
   let models;
   let maxTokens;
+  let timeoutMs;
   let source;
 
   if (text) {
@@ -109,6 +137,7 @@ export async function runRecipe({ parsed, text, lang, apiKey, videoModels, textM
     messages = buildVideoMessages({ url: parsed.canonicalUrl, lang });
     models = videoModels;
     maxTokens = VIDEO_MAX_TOKENS;
+    timeoutMs = VIDEO_TIMEOUT_MS;
     source = { type: 'youtube' };
   } else {
     route = ROUTES.instagram;
@@ -134,6 +163,7 @@ export async function runRecipe({ parsed, text, lang, apiKey, videoModels, textM
     models,
     messages,
     maxTokens,
+    timeoutMs,
     platform,
     fetchImpl,
   });
