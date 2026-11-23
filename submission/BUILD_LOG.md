@@ -14,7 +14,7 @@
 
 From the file timestamps in the working folder (Tokyo time, 23 Nov 2026): the brief was uploaded at 21:42, the project folder was created at 22:17, and the app's code was last changed at 23:05. That is about 35 minutes of reading the brief and agreeing a plan, then about 50 minutes of building the app. These documents came after.
 
-The commit times (22:31 to 23:05) show when each stage was saved, not when it was written, because the agent saved its work in batches after each stage worked.
+The commit times (22:31 to 23:14 on 23 Nov) show when each stage was saved, not when it was written, because the agent saved its work in batches after each stage worked. The first commit, "Initial commit" at 00:16 on 24 Nov, was made by GitHub when I created the empty repository, so it is dated after the commits on top of it.
 
 On top of that, my own time to deploy, run the test page, rate the recipes and write this up: **[__ hours]**.
 
