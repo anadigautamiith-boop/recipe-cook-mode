@@ -4,7 +4,7 @@ Paste a YouTube or Instagram cooking link. Get a recipe a first-time cook can fo
 
 Made for people who are cooking alone for the first time, often far from home, learning from videos made for people who already know the basics.
 
-**Live app:** _add your link here after you deploy (see "Put it online" below)_
+**Live app:** https://recipe-cook-mode.anadigautamiith.workers.dev
 **Test lab:** `/tests` on the live app. It lists the test videos, what each cost, how long it took and how it was rated.
 
 ## What it does
@@ -27,7 +27,7 @@ Needs Node 20 or newer.
 ```bash
 npm install
 npm run dev:mock        # pretend AI, no key, no cost: open http://localhost:8787
-npm test                # 139 tests, all on a fake network
+npm test                # 141 tests, all on a fake network
 ```
 
 In mock mode a few special video ids trigger the awkward cases on purpose: `aaaaaaaaaaa` is not a recipe, `bbbbbbbbbbb` is private, `ccccccccccc` makes the first model return broken JSON, `ddddddddddd` has two dishes, `eeeeeeeeeee` is slow, `fffffffffff` is a video the AI never received (the app must refuse the recipe it invents). An Instagram code containing `Cap` has a readable caption; any other does not.
@@ -59,7 +59,7 @@ src/                    the Worker
   openrouter.js         the AI client: model fallback, timeouts, cost taken from the reply
   prompt.js, schema.js  what we ask the AI, and a strict checker for what it sends back
   instagram.js          reads a public caption, never logs in, never uses cookies
-test/                   139 tests on a fake network (no key, no internet)
+test/                   141 tests on a fake network (no key, no internet)
 scripts/                the pretend-AI development server
 submission/             the write-up, test set and build log
 ```
