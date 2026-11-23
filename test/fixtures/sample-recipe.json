@@ -1,0 +1,112 @@
+{
+  "is_recipe": true,
+  "not_recipe_reason": null,
+  "video_notes": ["The cook talks fast and never says how much oil goes in the wok."],
+  "recipes": [
+    {
+      "title": "Tomato and Egg Stir-Fry",
+      "summary": "Soft scrambled eggs folded into a juicy tomato sauce.",
+      "servings": 2,
+      "servings_stated": true,
+      "time_minutes": 15,
+      "equipment": ["Wok or large frying pan", "Spatula", "Mixing bowl"],
+      "ingredients": [
+        { "group": "Eggs", "name": "eggs", "quantity": 4, "quantity_max": null, "unit": null, "amount_text": null, "note": null, "stated": true },
+        { "group": "Eggs", "name": "salt", "quantity": "1/4", "quantity_max": null, "unit": "teaspoon", "amount_text": null, "note": "for the eggs", "stated": true },
+        { "group": "Tomato sauce", "name": "ripe tomatoes", "quantity": 3, "quantity_max": null, "unit": null, "amount_text": null, "note": "cut into wedges", "stated": true },
+        { "group": "Tomato sauce", "name": "sugar", "quantity": 1, "quantity_max": null, "unit": "tsp", "amount_text": null, "note": null, "stated": true },
+        { "group": "Tomato sauce", "name": "spring onion", "quantity": null, "quantity_max": null, "unit": null, "amount_text": "a handful", "note": "sliced", "stated": true },
+        { "group": "Tomato sauce", "name": "salt", "quantity": 0.5, "quantity_max": null, "unit": "tsp", "amount_text": null, "note": "for the tomatoes", "stated": false },
+        { "group": null, "name": "cooking oil", "quantity": null, "quantity_max": null, "unit": null, "amount_text": null, "note": null, "stated": false }
+      ],
+      "steps": [
+        {
+          "text": "Crack the eggs into a bowl, add the salt and beat until no clear egg white is left.",
+          "timer_seconds": null,
+          "temperature": null,
+          "heat": null,
+          "done_cue": "The mixture is one even yellow colour with no streaks of white.",
+          "done_cue_added": true,
+          "terms": [{ "term": "beat", "meaning": "Mix fast with a fork or chopsticks so the whites and yolks blend." }],
+          "video_t": 22
+        },
+        {
+          "text": "Heat the oil in the wok on high heat until it shimmers.",
+          "timer_seconds": null,
+          "temperature": null,
+          "heat": "high",
+          "done_cue": "A drop of egg sizzles the moment it touches the oil.",
+          "done_cue_added": true,
+          "terms": [{ "term": "shimmers", "meaning": "The oil looks wavy and thin, just before it starts to smoke." }],
+          "video_t": 45
+        },
+        {
+          "text": "Pour in the eggs, let them set for a few seconds, then gently push them toward the middle.",
+          "timer_seconds": 20,
+          "temperature": null,
+          "heat": "high",
+          "done_cue": "The eggs are puffed and just set, still a little wet on top.",
+          "done_cue_added": true,
+          "terms": [{ "term": "set", "meaning": "Change from liquid to solid." }],
+          "video_t": 58
+        },
+        {
+          "text": "Move the eggs onto a plate.",
+          "timer_seconds": null,
+          "temperature": null,
+          "heat": null,
+          "done_cue": null,
+          "done_cue_added": false,
+          "terms": [],
+          "video_t": 80
+        },
+        {
+          "text": "Add the tomato wedges to the same wok and cook on medium heat, stirring now and then.",
+          "timer_seconds": 180,
+          "temperature": null,
+          "heat": "medium",
+          "done_cue": "The tomato skins curl and red juice collects in the bottom of the wok.",
+          "done_cue_added": true,
+          "terms": [],
+          "video_t": 95
+        },
+        {
+          "text": "Add the sugar and the salt for the tomatoes, then stir.",
+          "timer_seconds": null,
+          "temperature": null,
+          "heat": null,
+          "done_cue": null,
+          "done_cue_added": false,
+          "terms": [],
+          "video_t": 150
+        },
+        {
+          "text": "Return the eggs to the wok and fold everything together gently for 30 seconds.",
+          "timer_seconds": 30,
+          "temperature": null,
+          "heat": "medium",
+          "done_cue": "The eggs are coated in red sauce and the pieces are still soft.",
+          "done_cue_added": true,
+          "terms": [{ "term": "fold", "meaning": "Lift and turn the food over itself gently so it does not break up." }],
+          "video_t": 170
+        },
+        {
+          "text": "Scatter the spring onion on top and serve with rice.",
+          "timer_seconds": null,
+          "temperature": null,
+          "heat": null,
+          "done_cue": null,
+          "done_cue_added": false,
+          "terms": [],
+          "video_t": 190
+        }
+      ],
+      "tips": ["Very ripe tomatoes give the most juice."],
+      "gaps": [
+        "The amount of cooking oil is not stated.",
+        "The amount of salt for the tomatoes is not stated.",
+        "The size of the tomatoes is not stated."
+      ]
+    }
+  ]
+}
