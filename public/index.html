@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Cookalong: a recipe you can follow, from any cooking video</title>
+    <meta
+      name="description"
+      content="Paste a YouTube or Instagram cooking link. Get a recipe a first-time cook can follow, with every gap in the video marked."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#e7eae4" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/css/app.css" />
+    <script type="module" src="/js/app.js"></script>
+  </head>
+  <body>
+    <div class="wrap top">
+      <a class="brand" href="/" id="brand">
+        Cookalong
+        <svg viewBox="0 0 120 8" preserveAspectRatio="none" aria-hidden="true"><path d="M2 5c9-5 14 3 24-1s14 3 24-1 14 3 24-1 14 3 24-1 14 2 20 0" /></svg>
+      </a>
+      <button class="btn btn--quiet top__back" type="button" id="new-recipe" hidden>Make another recipe</button>
+    </div>
+
+    <main id="main">
+      <!-- Home: ask for a link -->
+      <div class="wrap home" id="home">
+        <section aria-labelledby="home-title">
+          <h1 class="home__title" id="home-title" tabindex="-1">Turn a cooking video into a recipe you can follow.</h1>
+          <p class="home__lede">
+            Made for your first time at the stove. We explain the cooking words, say what “done” looks like, and mark
+            anything the video didn’t tell you.
+          </p>
+
+          <form class="ask" id="ask" novalidate>
+            <label class="ask__label" for="url">Video link</label>
+            <div class="ask__row">
+              <input
+                class="field"
+                id="url"
+                name="url"
+                type="text"
+                inputmode="url"
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false"
+                placeholder="Paste a YouTube or Instagram link"
+              />
+              <button class="btn btn--primary btn--big" type="submit" id="make">Make my recipe</button>
+            </div>
+
+            <div id="paste-box" hidden>
+              <label class="ask__label" for="text" id="text-label">Recipe text</label>
+              <textarea
+                class="field"
+                id="text"
+                name="text"
+                rows="6"
+                placeholder="Paste the caption, the description or a transcript here."
+              ></textarea>
+            </div>
+
+            <div class="ask__more">
+              <button class="link-btn" type="button" id="paste-toggle" aria-expanded="false" aria-controls="paste-box">
+                Paste the recipe text instead
+              </button>
+              <label class="ask__lang">
+                Write the recipe in
+                <select class="field" id="lang" name="lang"></select>
+              </label>
+            </div>
+            <p class="ask__note">
+              YouTube: we read the whole video, picture and sound. Instagram: we can read the caption. If the recipe is
+              only in the video, paste what it says.
+            </p>
+          </form>
+
+          <div id="status" aria-live="polite"></div>
+          <section class="recents" id="recents" aria-labelledby="recents-title" hidden></section>
+        </section>
+
+        <aside class="sheet specimen" aria-labelledby="spec-title">
+          <p class="specimen__tag">An example of what you get, not a real recipe</p>
+          <h2 class="specimen__title" id="spec-title">Tomato and egg stir-fry</h2>
+
+          <ul class="ings">
+            <li>
+              <span class="ing"><span class="ing__box"></span><span class="ing__amt">4</span><span class="ing__name">eggs</span></span>
+            </li>
+            <li>
+              <span class="ing"><span class="ing__box"></span><span class="ing__amt">3</span><span class="ing__name">ripe tomatoes <span class="ing__note">cut into wedges</span></span></span>
+            </li>
+            <li>
+              <span class="ing"
+                ><span class="ing__box"></span><span class="ing__amt"><span class="hl hl--sweep">not said</span></span
+                ><span class="ing__name">cooking oil</span></span
+              >
+              <p class="ing__margin pen">
+                <svg class="ing__arrow" viewBox="0 0 30 30" aria-hidden="true"><path d="M24 26c-9 0-15-6-14-17M5 14l5-6 6 5" /></svg>
+                <span class="pen-in">The video never says how much.</span>
+              </p>
+            </li>
+          </ul>
+
+          <ol class="steps">
+            <li class="step">
+              <span class="step__n" aria-hidden="true">2</span>
+              <div class="step__body">
+                <p class="step__text">Heat the oil on high until it <span class="term">shimmers</span>.</p>
+                <p class="note pen"><b>shimmers:</b> the oil looks wavy and thin, just before it smokes.</p>
+                <p class="cue pen"><span class="cue__label">Looks done when:</span> a drop of egg sizzles the moment it touches the pan.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div>
+            <ul class="legend" aria-label="How to read a recipe">
+              <li class="legend__plain">From the video</li>
+              <li class="legend__pen">Added by us</li>
+              <li><span class="hl">Not in the video</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Recipe: filled in by the script -->
+      <div class="wrap recipe" id="recipe" hidden></div>
+    </main>
+
+    <footer class="wrap foot">
+      <p>
+        Recipes you make are saved in this browser only. The link you paste is sent to Google’s Gemini model, through
+        OpenRouter, so it can read the video.
+      </p>
+      <p>Reviewing this project? Open the <a class="link" href="/tests">Test Lab</a>.</p>
+    </footer>
+
+    <div class="alarm" id="alarm" role="alert" hidden></div>
+    <div class="toast" id="toast" role="status" hidden></div>
+    <noscript><p class="wrap">Cookalong needs JavaScript to turn a video link into a recipe.</p></noscript>
+  </body>
+</html>
