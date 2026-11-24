@@ -17,8 +17,8 @@ Accounts and a saved cookbook. TikTok, Facebook, X and Vimeo (pasting one gets a
 
 ## What can go wrong, and what happens
 
-- **Private, unlisted, age-restricted or live video.** My first real test showed the AI writing a convincing recipe for a private video it never received. The app now checks the AI's own usage report: video costs about 290 tokens a second, so a reply that read only our instructions is refused. The same private link now returns "We couldn't open that video" and offers "paste the text instead".
-- **Broken or invented AI output.** A strict checker skips a reply that is not valid JSON (the next model is tried), drops any "recipe" with no steps, and strips numbers from "not stated" ingredients. A cut-off reply becomes a "too long" message, never half a recipe.
+- **Private, unlisted, age-restricted or live video.** My first real test showed the AI writing a convincing recipe for a private video it never received. The app now reads the AI's usage report (video costs about 290 tokens a second) and refuses a reply that saw only our instructions. The same link now returns "We couldn't open that video" and offers "paste the text instead".
+- **Broken or invented AI output.** A strict checker skips a reply that is not valid JSON (the next model is tried) and drops any "recipe" with no steps. A cut-off reply becomes a "too long" message, never half a recipe.
 - **Not a recipe.** The app says so and does not invent one.
 - **A wrong amount gets through.** This is the real risk, and it is not zero. My answer is honesty, not a promise: each recipe says what it was built from and lists what the video did not say. I rated every test recipe by hand (TEST_SET.md).
 - **Someone runs up the bill.** 12 new recipes an hour per visitor, 120 a day in total, a six-hour cache, and the $20 key as the hard stop. The counts live in each server's memory, so they are a brake, not a wall.
