@@ -11,7 +11,7 @@
 
 By file timestamps (Tokyo time): the brief was uploaded at 21:42 on 23 Nov and the app's code was last changed at 23:05, so about 35 minutes of reading and agreeing a plan, then about 50 minutes of building. The first real run was at 00:39 on 24 Nov. Fixes were committed between 01:13 and 01:25, and I confirmed one on the live site at 01:30. The re-run was at 21:32 that evening. The first commit (00:16) is GitHub's own, made when I created the empty repository, so it is dated after the commits on top of it.
 
-My own time to deploy, test, rate and write up: **[5.12 hours]**.
+Complete build time from starting to deploy, test, rate and write up: **[5.12 hours]**.
 
 ## One moment AI saved time
 
