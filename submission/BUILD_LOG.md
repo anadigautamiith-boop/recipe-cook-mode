@@ -5,7 +5,7 @@
 - **Claude Sonnet 5.5, in Claude Code on the web.** The only coding agent. It wrote the code, the tests and these documents. My part was choosing the user (first-time cooks living abroad), deploying, running real videos through the app and rating the results. The agent ran in a sandbox that could not reach YouTube, Instagram, OpenRouter or Cloudflare, so **nothing was run against the real services until the app was deployed**.
 - **Cloudflare Workers with static assets** for hosting, on the free plan. `wrangler` was used for a deploy dry-run only.
 - **OpenRouter, then Gemini 2.5 Flash and Flash-Lite**, as the app's own AI (the $20 key from the brief).
-- **Node's built-in test runner:** 141 tests on a fake network (121 when the app was first deployed).
+- **Node's built-in test runner:** 142 tests on a fake network (121 when the app was first deployed).
 - **Headless Chrome with puppeteer-core** for screenshots of every screen at desktop and phone size.
 - **Atkinson Hyperlegible Next and Kalam**, self-hosted (both under the SIL Open Font License).
 - **GitHub** for the repository. **Web search and page fetches** to check documentation (which models accept YouTube links, how video is priced) and to find test videos.

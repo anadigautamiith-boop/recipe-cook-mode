@@ -59,6 +59,17 @@ test('runFromPayload keeps the numbers the write-up needs', () => {
   assert.equal(run.error, null);
 });
 
+test('runFromPayload keeps what the app changed apart from the backup attempts', () => {
+  const run = runFromPayload(
+    payload({ meta: { ...payload().meta, fallbacks: [], adjustments: ['25 step times hidden because some were later than the video can be'] } }),
+    { now: NOW },
+  );
+  assert.deepEqual(run.fallbacks, []);
+  assert.deepEqual(run.adjustments, ['25 step times hidden because some were later than the video can be']);
+  assert.deepEqual(runFromPayload(payload(), { now: NOW }).adjustments, []);
+  assert.deepEqual(runFromError({ code: 'too_long', message: 'Too long.' }, { now: NOW }).adjustments, []);
+});
+
 test('runFromPayload records "not a recipe" with the reason', () => {
   const run = runFromPayload(
     payload({ result: { is_recipe: false, not_recipe_reason: 'A person at a zoo.', recipes: [] }, meta: { route: 'youtube-video', ms: 5000, cost_usd: 0.002 } }),

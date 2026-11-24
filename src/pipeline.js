@@ -52,6 +52,8 @@ async function askForRecipe({ apiKey, models, messages, maxTokens, timeoutMs, pl
   let blind = 0;
   const usage = { prompt: 0, completion: 0, total: 0, cost: 0, costKnown: false };
   const notes = [];
+  // What the app changed in an answer it kept (not a failed attempt, so not a "backup").
+  const adjustments = [];
   let cutOff = false;
 
   while (remaining.length > 0) {
@@ -75,10 +77,10 @@ async function askForRecipe({ apiKey, models, messages, maxTokens, timeoutMs, pl
         const latest = latestPlausibleSecond(reply.usage.prompt);
         const removed = dropImplausibleTimestamps(result, latest);
         if (removed > 0) {
-          notes.push(`${reply.requested}: ${removed} step timestamps hidden because some were later than the video can be`);
+          adjustments.push(`${removed} step times hidden because some were later than the video can be`);
         }
       }
-      return { result, reply, usage, notes };
+      return { result, reply, usage, notes, adjustments };
     } catch (err) {
       cutOff = reply.finishReason === 'length';
       const used = Number.isFinite(reply.usage.completion) ? ` after ${reply.usage.completion} output tokens` : '';
@@ -161,7 +163,7 @@ export async function runRecipe({ parsed, text, lang, apiKey, videoModels, textM
     source = { type: 'instagram-caption', caption_from: caption.source, chars: captionText.length };
   }
 
-  const { result, reply, usage, notes } = await askForRecipe({
+  const { result, reply, usage, notes, adjustments } = await askForRecipe({
     apiKey,
     models,
     messages,
@@ -197,6 +199,7 @@ export async function runRecipe({ parsed, text, lang, apiKey, videoModels, textM
       created_at: new Date(now()).toISOString(),
       stats: summarizeResult(result),
       fallbacks: notes.slice(0, 6).map((n) => String(n).slice(0, 200)),
+      adjustments: adjustments.slice(0, 3).map((n) => String(n).slice(0, 200)),
     },
     source,
   };

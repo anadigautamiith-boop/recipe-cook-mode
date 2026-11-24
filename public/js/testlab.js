@@ -214,6 +214,7 @@ function showOutput(row) {
       s ? fact('Gaps flagged', String(s.gaps)) : null,
       s && s.recipes > 1 ? fact('Dishes found', String(s.recipes)) : null,
       run.fallbacks.length ? fact('Other models tried first', run.fallbacks.join(' | ')) : null,
+      run.adjustments && run.adjustments.length ? fact('Changed by the app', run.adjustments.join(' | ')) : null,
       fact('Run', timeAgo(run.at)),
     ),
   );

@@ -405,7 +405,8 @@ test('step timestamps later than the video can be are hidden, because none can b
   const { res, body } = await run(app, post('/api/recipe', { url: YT }));
   assert.equal(res.status, 200);
   assert.ok(body.result.recipes[0].steps.every((step) => step.video_t === null));
-  assert.ok(body.meta.fallbacks.some((n) => /timestamps hidden/.test(n)));
+  assert.deepEqual(body.meta.fallbacks, [], 'hiding step times is not a failed attempt, so no backup was used');
+  assert.ok(body.meta.adjustments.some((n) => /step times hidden/.test(n)));
 });
 
 // ---- diagnose --------------------------------------------------------------------------------

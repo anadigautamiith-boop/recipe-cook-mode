@@ -110,6 +110,7 @@ export function runFromPayload(payload, { clientMs = null, now = Date.now() } = 
       gaps: num(stats.gaps) ?? 0,
     },
     fallbacks: Array.isArray(meta.fallbacks) ? meta.fallbacks.slice(0, 6).map(String) : [],
+    adjustments: Array.isArray(meta.adjustments) ? meta.adjustments.slice(0, 3).map(String) : [],
     error: null,
   };
 }
@@ -131,6 +132,7 @@ export function runFromError(err, { clientMs = null, now = Date.now() } = {}) {
     tokens: null,
     stats: null,
     fallbacks: [],
+    adjustments: [],
     error: { code, message: String((err && err.message) || 'Something went wrong.'), hint: (err && err.hint) || null },
   };
 }

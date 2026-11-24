@@ -295,6 +295,7 @@ export function mountRecipe(root, payload, { id, toast }) {
       rows.push(['Amounts left blank', `${meta.stats.ingredients - meta.stats.ingredients_stated} of ${meta.stats.ingredients}, because the ${words.noun} didn’t give them`]);
     }
     if (meta.fallbacks && meta.fallbacks.length) rows.push(['Backup used', `${meta.fallbacks.length} earlier attempt${meta.fallbacks.length === 1 ? '' : 's'} failed first`]);
+    if (meta.adjustments && meta.adjustments.length) rows.push(['Changed by the app', meta.adjustments.join('; ')]);
     return h(
       'details',
       { class: 'receipt' },

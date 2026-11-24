@@ -27,7 +27,7 @@ Needs Node 20 or newer.
 ```bash
 npm install
 npm run dev:mock        # pretend AI, no key, no cost: open http://localhost:8787
-npm test                # 141 tests, all on a fake network
+npm test                # 142 tests, all on a fake network
 ```
 
 In mock mode a few special video ids trigger the awkward cases on purpose: `aaaaaaaaaaa` is not a recipe, `bbbbbbbbbbb` is private, `ccccccccccc` makes the first model return broken JSON, `ddddddddddd` has two dishes, `eeeeeeeeeee` is slow, `fffffffffff` is a video the AI never received (the app must refuse the recipe it invents). An Instagram code containing `Cap` has a readable caption; any other does not.
@@ -59,7 +59,7 @@ src/                    the Worker
   openrouter.js         the AI client: model fallback, timeouts, cost taken from the reply
   prompt.js, schema.js  what we ask the AI, and a strict checker for what it sends back
   instagram.js          reads a public caption, never logs in, never uses cookies
-test/                   141 tests on a fake network (no key, no internet)
+test/                   142 tests on a fake network (no key, no internet)
 scripts/                the pretend-AI development server
 submission/             the write-up, test set and build log
 ```
