@@ -60,7 +60,7 @@ src/                    the Worker
   prompt.js, schema.js  what we ask the AI, and a strict checker for what it sends back
   instagram.js          reads a public caption, never logs in, never uses cookies
 test/                   142 tests on a fake network (no key, no internet)
-scripts/                the pretend-AI development server
+scripts/                the pretend-AI development server, and results-table.mjs (prints the recorded test results as a table)
 submission/             the write-up, test set and build log
 ```
 
@@ -68,15 +68,16 @@ Settings that are not secret (model names, limits) are in `wrangler.jsonc` and c
 
 ## What it costs
 
-A model that reads video is billed by the second of video: Gemini turns each second into about 300 tokens. With `google/gemini-2.5-flash` at $0.30 per million tokens in and $2.50 out (OpenRouter's listed price), that is roughly:
+A model that reads video is billed by the second of video: Gemini turns each second into about 300 tokens. With `google/gemini-2.5-flash` at $0.30 per million tokens in and $2.50 out (OpenRouter's listed price), the measured cost of a YouTube recipe on the real app was:
 
-| Video length | About |
+| Video | Cost |
 |---|---|
-| 1 minute (a Short) | 1 cent |
-| 4 minutes | 3 cents |
-| 10 minutes | 6 cents |
+| 1 minute (a Short) | 2.4 cents |
+| 3 minutes | 4 cents |
+| 10 minutes (three dishes) | 9.5 cents |
+| 13 minutes | 10.7 cents |
 
-These are estimates worked out from list prices. The test lab records the real figure for each video, taken from OpenRouter's own usage report, and `submission/TEST_SET.md` has those numbers. Instagram captions and pasted text use a text-only model and cost a fraction of a cent.
+That is roughly 2 to 3 cents to write the recipe, plus 0.7 cents for each minute of video. The five YouTube videos in the test set averaged 6.3 cents. An Instagram caption recipe cost about a tenth of a cent in the test; pasted text uses the same text-only model. The numbers come from OpenRouter's own usage report for each run; `submission/TEST_SET.md` has them all, and the test lab records the figure for every video you run.
 
 ## Safety and privacy
 
@@ -91,8 +92,9 @@ These are estimates worked out from list prices. The test lab records the real f
 Nothing in this list is hidden in the app; it is here so you know where the edges are.
 
 - Only **public** YouTube videos work. Private and unlisted videos cannot be opened by the model, and the app says so.
-- Length: in live tests a video of just over 12 minutes finished (about two minutes), and videos over 20 minutes returned an error message. The app says so instead of showing a partial recipe, but there is no promise for anything longer than about 15 minutes.
-- Step timestamps come from the AI and are sometimes missing or wrong, so the app hides them when they cannot fit the video's length. Treat the "watch this step" links as a convenience.
+- Length: a video of about 13 minutes finished in 70 seconds, and in my first run a video over 20 minutes returned an error message. The app says so instead of showing a partial recipe, but there is no promise for anything longer than about 15 minutes.
+- A video with more than three dishes returns the first three, and a video that only assembles prepared parts gives recipes that start from those parts.
+- Step timestamps come from the AI and are sometimes wrong. The app hides them when they run well past the video's length, but smaller errors get through (on the dal tadka test video the last five were up to about a minute past the video's end). Treat the "watch this step" links as approximate.
 - Instagram is best effort. If Instagram changes its public pages, the caption reader stops finding captions and the app falls back to asking for pasted text.
 - The recipe cache and the rate limits live in each Worker instance's memory. They are a brake, not a wall: a restart clears them, and two instances do not share them. A hard limit would need Cloudflare KV or a Durable Object.
 - The free plan gives a Worker about 10 milliseconds of processor time per request, so the Worker does no heavy parsing. It waits for OpenRouter, which does not count against that time.
