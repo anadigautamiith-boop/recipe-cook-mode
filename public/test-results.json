@@ -1,7 +1,3428 @@
 {
   "version": 1,
-  "recorded_at": null,
-  "origin": null,
-  "rows": [],
-  "payloads": {}
+  "recorded_at": "2026-11-24T12:43:35.807Z",
+  "origin": "https://recipe-cook-mode.anadigautamiith.workers.dev",
+  "rows": [
+    {
+      "id": "easy",
+      "label": "Miniature cooking: one dish, no real amounts",
+      "hint": "Paste a public cooking video of 3 to 6 minutes: one dish and someone talking through it. The baseline to compare everything else with. Check it plays without signing in.",
+      "url": "https://youtu.be/BDiBQUN_89I",
+      "lang": "en",
+      "expect": [
+        "recipe"
+      ],
+      "rating": "good",
+      "note": "Meant as the easy baseline, but the video is miniature cooking with no real amounts. The app still wrote a 25-step spaghetti and meatballs recipe and marked all 17 amounts 'not stated' instead of inventing them, with 10 gaps listed (nine amounts and the oven temperature). The one timer, 20 minutes of boiling, is worth checking against the video. No step times given. 40 s, $0.047.",
+      "run": {
+        "at": "2026-11-24T12:32:20.604Z",
+        "outcome": "recipe",
+        "title": "Spaghetti and Meatballs",
+        "reason": "",
+        "route": "youtube-video",
+        "model": "google/gemini-2.5-flash",
+        "cached": false,
+        "ms": 40327,
+        "clientMs": 40481,
+        "cost": 0.046543,
+        "tokens": 84069,
+        "stats": {
+          "recipes": 1,
+          "ingredients": 17,
+          "ingredients_stated": 0,
+          "steps": 25,
+          "timers": 1,
+          "cues": 6,
+          "gaps": 10
+        },
+        "fallbacks": [],
+        "error": null,
+        "adjustments": []
+      }
+    },
+    {
+      "id": "short",
+      "label": "Short and fast: a YouTube Short",
+      "hint": "Under a minute, so there is little time to say amounts. Gaps should be marked, never invented.",
+      "url": "https://www.youtube.com/shorts/-3RfZsImwGg",
+      "lang": "en",
+      "rating": "good",
+      "note": "A one-minute Short. The video gives only 2 of the 10 amounts (2 sausage links and half a lemon), so the other 8 are marked 'not stated' and 10 gaps are listed, including two cooking times. 26 short steps with times from 1 s to 51 s, inside the video's length, and 8 'done when' hints. 32 s, $0.024.",
+      "run": {
+        "at": "2026-11-24T12:32:52.714Z",
+        "outcome": "recipe",
+        "title": "Homemade Farfalle with Sausage and Olive Sauce",
+        "reason": "",
+        "route": "youtube-video",
+        "model": "google/gemini-2.5-flash",
+        "cached": false,
+        "ms": 31970,
+        "clientMs": 32104,
+        "cost": 0.024129,
+        "tokens": 25733,
+        "stats": {
+          "recipes": 1,
+          "ingredients": 10,
+          "ingredients_stated": 2,
+          "steps": 26,
+          "timers": 0,
+          "cues": 8,
+          "gaps": 10
+        },
+        "fallbacks": [],
+        "error": null,
+        "adjustments": []
+      }
+    },
+    {
+      "id": "hindi",
+      "label": "Indian recipe: dal tadka (title in Hindi and English)",
+      "hint": "Watch ten seconds and note how it is presented: which language is spoken, and whether amounts are said or only written on screen. Then rename this row to match. Either way you should get a clear recipe.",
+      "url": "https://www.youtube.com/watch?v=XzKkkMdo7Jk",
+      "lang": "en",
+      "expect": [
+        "recipe"
+      ],
+      "rating": "good",
+      "note": "A complete, followable recipe: all 30 ingredients have amounts, plus 16 steps, 1 timer and 6 'done when' hints. Both tempering stages are captured. Two gaps are flagged (servings; heat under the pressure cooker). Weak spot: the last five step times (3:24 to 4:05) are later than the video's estimated end (about 3:10), so those 'watch this step' links are unreliable. 39 s, $0.040.",
+      "run": {
+        "at": "2026-11-24T12:33:31.292Z",
+        "outcome": "recipe",
+        "title": "Dal Tadka",
+        "reason": "",
+        "route": "youtube-video",
+        "model": "google/gemini-2.5-flash",
+        "cached": false,
+        "ms": 38506,
+        "clientMs": 38575,
+        "cost": 0.039779,
+        "tokens": 65467,
+        "stats": {
+          "recipes": 1,
+          "ingredients": 30,
+          "ingredients_stated": 30,
+          "steps": 16,
+          "timers": 1,
+          "cues": 6,
+          "gaps": 2
+        },
+        "fallbacks": [],
+        "error": null,
+        "adjustments": []
+      }
+    },
+    {
+      "id": "many",
+      "label": "Several dishes in one video",
+      "hint": "Five recipes in ten minutes. You should get one tab per dish.",
+      "url": "https://www.youtube.com/watch?v=ERysyFbJH7w",
+      "lang": "en",
+      "expect": [
+        "recipe"
+      ],
+      "minRecipes": 2,
+      "rating": "good",
+      "note": "Three of the video's five meals came back, one tab each (the app's maximum is three): Hummus Pasta Salad, Roasted Bell Pepper Pesto Sandwich and Lentil Harvest Bowl. 23 steps in all (6, 10 and 7), 25 of 26 amounts stated, 12 gaps flagged. The recipes start from prepared parts (cooked pasta, lentil stew, cooked tofu), so cooking those parts is not covered, and 'about 5 minutes' per dish means assembly only. 53 s, $0.095.",
+      "run": {
+        "at": "2026-11-24T12:34:24.764Z",
+        "outcome": "recipe",
+        "title": "Hummus Pasta Salad",
+        "reason": "",
+        "route": "youtube-video",
+        "model": "google/gemini-2.5-flash",
+        "cached": false,
+        "ms": 53359,
+        "clientMs": 53466,
+        "cost": 0.095459,
+        "tokens": 191366,
+        "stats": {
+          "recipes": 3,
+          "ingredients": 26,
+          "ingredients_stated": 25,
+          "steps": 23,
+          "timers": 0,
+          "cues": 1,
+          "gaps": 12
+        },
+        "fallbacks": [],
+        "error": null,
+        "adjustments": []
+      }
+    },
+    {
+      "id": "notrecipe",
+      "label": "Not a recipe",
+      "hint": "The first video ever uploaded to YouTube, 19 seconds at a zoo. It must say so instead of inventing a dish.",
+      "url": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+      "lang": "en",
+      "expect": [
+        "not_recipe"
+      ],
+      "rating": "good",
+      "note": "Correct refusal. The video is a person talking about elephants at a zoo (the first video uploaded to YouTube, 19 seconds). The app said it is not a recipe and gave that reason instead of inventing a dish. The reason matches the video, so the video really was read. 4.0 s, $0.003.",
+      "run": {
+        "at": "2026-11-24T12:34:28.922Z",
+        "outcome": "not_recipe",
+        "title": "",
+        "reason": "The video shows a person talking about elephants at a zoo and does not contain any cooking instructions or food preparation.",
+        "route": "youtube-video",
+        "model": "google/gemini-2.5-flash",
+        "cached": false,
+        "ms": 3958,
+        "clientMs": 4151,
+        "cost": 0.003019,
+        "tokens": 7022,
+        "stats": {
+          "recipes": 0,
+          "ingredients": 0,
+          "ingredients_stated": 0,
+          "steps": 0,
+          "timers": 0,
+          "cues": 0,
+          "gaps": 0
+        },
+        "fallbacks": [],
+        "error": null,
+        "adjustments": []
+      }
+    },
+    {
+      "id": "long",
+      "label": "Long: 12 minutes or more",
+      "hint": "Paste a long cooking video. It should finish, or fail honestly with a clear message. A half-made recipe is a failure.",
+      "url": "https://youtu.be/5QJUdaUxm0s",
+      "lang": "en",
+      "expect": [
+        "recipe",
+        "error:too_long"
+      ],
+      "rating": "good",
+      "note": "About 13 minutes: a chef cooks egg fried rice with an omelette parcel while a reviewer comments. 25 steps, 40 ingredients (33 with amounts), 3 timers, 15 'done when' hints, 5 gaps. The main model finished without falling back: 70 s and $0.107, against 129 s and $0.137 on the first run. The AI's step times ran past the video's length, so the app hid all 25.",
+      "run": {
+        "at": "2026-11-24T12:35:38.987Z",
+        "outcome": "recipe",
+        "title": "Indian Style Egg Fried Rice with Omelette Parcel and Sauce",
+        "reason": "",
+        "route": "youtube-video",
+        "model": "google/gemini-2.5-flash",
+        "cached": false,
+        "ms": 69985,
+        "clientMs": 70063,
+        "cost": 0.107373,
+        "tokens": 239250,
+        "stats": {
+          "recipes": 1,
+          "ingredients": 40,
+          "ingredients_stated": 33,
+          "steps": 25,
+          "timers": 3,
+          "cues": 15,
+          "gaps": 5
+        },
+        "fallbacks": [],
+        "error": null,
+        "adjustments": [
+          "25 step times hidden because some were later than the video can be"
+        ]
+      }
+    },
+    {
+      "id": "ig-caption",
+      "label": "Instagram Reel, recipe written in the caption",
+      "hint": "Paste a Reel whose caption lists the recipe. It should build from the caption and say it could not watch the video.",
+      "url": "https://www.instagram.com/reel/C6EUaIyPwDg/",
+      "lang": "en",
+      "expect": [
+        "recipe"
+      ],
+      "rating": "good",
+      "note": "Instagram caption path works end to end. The app read the public caption, labelled the result as built from the caption, and wrote a 9-step recipe with 12 ingredients. Only 4 amounts were given, so 8 are marked 'not stated', and 9 gaps (including cooking time and heat) are listed. It cannot be checked against the video itself. 7.7 s, $0.001.",
+      "run": {
+        "at": "2026-11-24T12:35:46.770Z",
+        "outcome": "recipe",
+        "title": "Moong Dal Breakfast Patties",
+        "reason": "",
+        "route": "instagram-caption",
+        "model": "google/gemini-2.5-flash-lite",
+        "cached": false,
+        "ms": 7710,
+        "clientMs": 7781,
+        "cost": 0.001214,
+        "tokens": 4192,
+        "stats": {
+          "recipes": 1,
+          "ingredients": 12,
+          "ingredients_stated": 4,
+          "steps": 9,
+          "timers": 0,
+          "cues": 2,
+          "gaps": 9
+        },
+        "fallbacks": [],
+        "error": null,
+        "adjustments": []
+      }
+    },
+    {
+      "id": "ig-bare",
+      "label": "Instagram Reel, nothing useful in the caption",
+      "hint": "The recipe is only in the video. It should ask you to paste the text, and must not make one up.",
+      "url": "https://www.instagram.com/reel/DgFZWfOtahS/",
+      "lang": "en",
+      "expect": [
+        "needs_text",
+        "error:caption_not_recipe"
+      ],
+      "rating": "good",
+      "note": "Handled honestly. This time Instagram served the caption (2.4 s). The app found no recipe in it and offered the paste box instead of inventing one. On the first run the app could not read this Reel at all (\"Instagram doesn't let us read this Reel automatically\") and asked for pasted text, so reading Instagram is best effort and both outcomes end the same way. The cost of this AI check is not shown for errors; it is a fraction of a cent.",
+      "run": {
+        "at": "2026-11-24T12:35:49.218Z",
+        "outcome": "error:caption_not_recipe",
+        "title": "",
+        "reason": "",
+        "route": "",
+        "model": "",
+        "cached": false,
+        "ms": null,
+        "clientMs": 2445,
+        "cost": null,
+        "tokens": null,
+        "stats": null,
+        "fallbacks": [],
+        "error": {
+          "code": "caption_not_recipe",
+          "message": "That caption doesn't include the recipe.",
+          "hint": "Many creators put the recipe in the video or the comments. Paste the ingredients and steps here and we will build it from that."
+        },
+        "adjustments": []
+      }
+    }
+  ],
+  "payloads": {
+    "short": {
+      "ok": true,
+      "result": {
+        "is_recipe": true,
+        "not_recipe_reason": null,
+        "video_notes": [
+          "The video demonstrates making fresh farfalle pasta from scratch, then preparing a sausage and olive sauce to go with it. Many ingredient quantities and cooking times are not specified."
+        ],
+        "recipes": [
+          {
+            "title": "Homemade Farfalle with Sausage and Olive Sauce",
+            "summary": "Make fresh bow-tie pasta from scratch, then cook it with a savory sausage and olive sauce, topped with creamy burrata.",
+            "servings": null,
+            "servings_stated": false,
+            "time_minutes": null,
+            "equipment": [
+              "Large mixing bowl (or work surface)",
+              "Fork",
+              "Dough scraper",
+              "Pasta machine",
+              "Pasta crimper (or fluted pastry wheel)",
+              "Chef's knife",
+              "Cutting board",
+              "Large pan (or skillet)",
+              "Spatula",
+              "Slotted spoon",
+              "Large pot",
+              "Serving plate"
+            ],
+            "ingredients": [
+              {
+                "group": "For the pasta",
+                "name": "All-purpose flour",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For the pasta",
+                "name": "Egg yolks",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For the sauce",
+                "name": "Green olives",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "pitted",
+                "stated": false
+              },
+              {
+                "group": "For the sauce",
+                "name": "Italian sausage",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": "links",
+                "amount_text": null,
+                "note": "casings removed",
+                "stated": true
+              },
+              {
+                "group": "For the sauce",
+                "name": "Olive oil",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For the sauce",
+                "name": "Chicken broth",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For the sauce",
+                "name": "Lemon",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the sauce",
+                "name": "Butter",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For serving",
+                "name": "Burrata cheese",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For serving",
+                "name": "Fresh oregano",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              }
+            ],
+            "steps": [
+              {
+                "text": "Create a mound of flour on a clean work surface and make a well in the center.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 1
+              },
+              {
+                "text": "Pour the egg yolks into the well in the flour.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 1
+              },
+              {
+                "text": "Use a fork to gently whisk the egg yolks, gradually incorporating small amounts of flour from the sides of the well.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 2
+              },
+              {
+                "text": "Continue to mix the flour and egg yolks until a shaggy dough forms.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The mixture should come together into a rough, shaggy dough.",
+                "done_cue_added": true,
+                "terms": [
+                  {
+                    "term": "shaggy dough",
+                    "meaning": "A rough, uneven dough that has just started to come together, before it is fully kneaded and smooth."
+                  }
+                ],
+                "video_t": 5
+              },
+              {
+                "text": "Use a dough scraper to bring the dough together, then knead it on the work surface until smooth and elastic.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The dough should be smooth and spring back when gently poked.",
+                "done_cue_added": true,
+                "terms": [
+                  {
+                    "term": "knead",
+                    "meaning": "To work dough by hand, pressing and folding it repeatedly to develop gluten and make it smooth and elastic."
+                  }
+                ],
+                "video_t": 6
+              },
+              {
+                "text": "Pass the dough through a pasta machine, gradually decreasing the thickness setting, to create long, thin sheets.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The pasta sheets should be thin and even.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": 9
+              },
+              {
+                "text": "Use a pasta crimper to create a decorative edge along the long sides of the pasta sheets.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 11
+              },
+              {
+                "text": "Cut the pasta sheets into small rectangles using a knife.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 13
+              },
+              {
+                "text": "Pinch the center of each pasta rectangle to form a bow-tie shape (farfalle).",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 15
+              },
+              {
+                "text": "Place the shaped farfalle on a drying rack or tray lined with parchment paper.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 17
+              },
+              {
+                "text": "Finely chop the pitted green olives.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 20
+              },
+              {
+                "text": "Remove the Italian sausage from its casings.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 23
+              },
+              {
+                "text": "Heat olive oil in a large pan over medium-high heat.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": "The oil should shimmer slightly.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": 25
+              },
+              {
+                "text": "Add the sausage meat to the hot pan, breaking it apart with a spatula.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 28
+              },
+              {
+                "text": "Cook the sausage until it is browned and crumbled.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The sausage should be fully cooked through and no longer pink.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": 31
+              },
+              {
+                "text": "Add the chopped green olives to the pan with the sausage and stir to combine.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 33
+              },
+              {
+                "text": "Pour in the chicken broth and bring the mixture to a simmer.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "Small bubbles should appear on the surface of the liquid.",
+                "done_cue_added": true,
+                "terms": [
+                  {
+                    "term": "simmer",
+                    "meaning": "To cook food in liquid just below the boiling point, with small bubbles gently breaking the surface."
+                  }
+                ],
+                "video_t": 37
+              },
+              {
+                "text": "Meanwhile, bring a large pot of water to a rolling boil.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "high",
+                "done_cue": "The water should have large, continuous bubbles.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": 38
+              },
+              {
+                "text": "Add the fresh farfalle pasta to the boiling water and cook until al dente.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The pasta should be tender but still firm to the bite.",
+                "done_cue_added": true,
+                "terms": [
+                  {
+                    "term": "al dente",
+                    "meaning": "Italian for 'to the tooth', meaning pasta that is cooked through but still firm when bitten."
+                  }
+                ],
+                "video_t": 38
+              },
+              {
+                "text": "Using a slotted spoon, transfer the cooked pasta directly from the pot to the pan with the sausage and olive sauce.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 39
+              },
+              {
+                "text": "Squeeze the juice from half a lemon over the pasta and sauce.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 41
+              },
+              {
+                "text": "Add the pats of butter to the pan.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 43
+              },
+              {
+                "text": "Toss the pasta, sauce, lemon juice, and butter together until well combined and the butter has melted.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 44
+              },
+              {
+                "text": "Serve the pasta onto a plate.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 45
+              },
+              {
+                "text": "Top with spoonfuls of burrata cheese.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 49
+              },
+              {
+                "text": "Garnish with fresh oregano sprigs.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 51
+              }
+            ],
+            "tips": [],
+            "gaps": [
+              "The exact quantity of flour for the pasta is not stated.",
+              "The exact number of egg yolks for the pasta is not stated.",
+              "The exact quantity of green olives is not stated.",
+              "The exact quantity of olive oil for the sauce is not stated.",
+              "The exact quantity of chicken broth is not stated.",
+              "The exact quantity of butter is not stated.",
+              "The exact quantity of burrata cheese is not stated.",
+              "The exact quantity of fresh oregano is not stated.",
+              "The cooking time for the sausage is not stated.",
+              "The cooking time for the fresh pasta is not stated."
+            ]
+          }
+        ]
+      },
+      "meta": {
+        "route": "youtube-video",
+        "platform": "youtube",
+        "video_id": "-3RfZsImwGg",
+        "canonical_url": "https://www.youtube.com/watch?v=-3RfZsImwGg",
+        "lang": "en",
+        "model": "google/gemini-2.5-flash",
+        "tokens": {
+          "prompt": 18881,
+          "completion": 6852,
+          "total": 25733
+        },
+        "cost_usd": 0.024129,
+        "ms": 31970,
+        "cached": false,
+        "created_at": "2026-11-24T12:32:53.540Z",
+        "stats": {
+          "recipes": 1,
+          "ingredients": 10,
+          "ingredients_stated": 2,
+          "steps": 26,
+          "timers": 0,
+          "cues": 8,
+          "gaps": 10
+        },
+        "fallbacks": [],
+        "adjustments": []
+      },
+      "source": {
+        "type": "youtube"
+      }
+    },
+    "easy": {
+      "ok": true,
+      "result": {
+        "is_recipe": true,
+        "not_recipe_reason": null,
+        "video_notes": [
+          "This video features miniature cooking, so all ingredients and equipment are tiny versions of their real-life counterparts. Quantities are not specified and are visually very small."
+        ],
+        "recipes": [
+          {
+            "title": "Spaghetti and Meatballs",
+            "summary": "A miniature recipe for spaghetti and meatballs, featuring homemade meatballs baked in the oven and a quick vegetable sauce.",
+            "servings": null,
+            "servings_stated": false,
+            "time_minutes": null,
+            "equipment": [
+              "Small bowl",
+              "Small cutting board",
+              "Small knife",
+              "Tiny fork",
+              "Foil-lined baking tray",
+              "Oven",
+              "Small burner",
+              "Small pot with lid",
+              "Tongs",
+              "Small pan",
+              "Small brush",
+              "Serving plate"
+            ],
+            "ingredients": [
+              {
+                "group": "For the Meatballs",
+                "name": "Ground beef",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For the Meatballs",
+                "name": "Garlic",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "finely chopped",
+                "stated": false
+              },
+              {
+                "group": "For the Meatballs",
+                "name": "Onion",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "finely chopped",
+                "stated": false
+              },
+              {
+                "group": "For the Meatballs",
+                "name": "Pepper",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For the Meatballs",
+                "name": "Salt",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For the Meatballs",
+                "name": "Olive oil",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "for brushing meatballs",
+                "stated": false
+              },
+              {
+                "group": "For the Spaghetti",
+                "name": "Spaghetti",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For the Spaghetti",
+                "name": "Water",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "for boiling pasta",
+                "stated": false
+              },
+              {
+                "group": "For the Spaghetti",
+                "name": "Salt",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "for pasta water",
+                "stated": false
+              },
+              {
+                "group": "For the Sauce",
+                "name": "Cooking oil",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For the Sauce",
+                "name": "Tomato",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "chopped",
+                "stated": false
+              },
+              {
+                "group": "For the Sauce",
+                "name": "Scallion",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "chopped",
+                "stated": false
+              },
+              {
+                "group": "For the Sauce",
+                "name": "Carrot",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "peeled and chopped",
+                "stated": false
+              },
+              {
+                "group": "For the Sauce",
+                "name": "Pepper",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For the Sauce",
+                "name": "Salt",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For Garnish",
+                "name": "Basil",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For Garnish",
+                "name": "Cheese powder",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              }
+            ],
+            "steps": [
+              {
+                "text": "Place the ground beef in a small bowl.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Finely chop the garlic and add it to the ground beef.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Finely chop the onion and add it to the ground beef.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add pepper and salt to the ground beef mixture.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Mix the ground beef mixture thoroughly with a tiny fork until well combined.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The ingredients are evenly distributed throughout the meat.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Form the mixture into small, round meatballs and place them on a foil-lined baking tray.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Brush olive oil over each meatball.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Bake the meatballs in the oven until they are cooked through and browned.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The meatballs are firm and no longer pink inside.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Light a burner and place a small pot with water on it.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add salt to the water and bring it to a boil.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "high",
+                "done_cue": "The water is bubbling rapidly.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add spaghetti to the boiling water, cover the pot, and boil for 20 minutes.",
+                "timer_seconds": 1200,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The pasta is tender but still firm to the bite.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "While the pasta cooks, chop the tomato into small pieces.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Chop the scallion into small pieces.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Peel and chop the carrot into small pieces.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Heat cooking oil in a small pan on the burner.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium",
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add the chopped garlic and onion (from the ground beef preparation) to the pan and sauté.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium",
+                "done_cue": "The garlic and onion are fragrant and slightly softened.",
+                "done_cue_added": true,
+                "terms": [
+                  {
+                    "term": "Sauté",
+                    "meaning": "To cook food quickly in a small amount of fat over high heat."
+                  }
+                ],
+                "video_t": null
+              },
+              {
+                "text": "Add the chopped tomato, scallion, and carrot to the pan and sauté with the garlic and onion.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium",
+                "done_cue": "The vegetables are slightly softened and the tomato has broken down a bit.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add pepper and salt to the vegetables in the pan.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Stir the vegetables and sauce mixture in the pan.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add the cooked meatballs to the pan with the sauce and vegetables.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Stir to combine the meatballs with the sauce, ensuring they are well coated.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Remove the cooked spaghetti from the pot using tongs and arrange it on a serving plate.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Spoon the meatballs and sauce mixture over the spaghetti.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Garnish with basil.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Garnish with cheese powder.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              }
+            ],
+            "tips": [],
+            "gaps": [
+              "The amount of ground beef is not stated.",
+              "The amount of garlic is not stated.",
+              "The amount of onion is not stated.",
+              "The amount of pepper for the meatballs is not stated.",
+              "The amount of salt for the meatballs is not stated.",
+              "The amount of olive oil for brushing is not stated.",
+              "The oven temperature for baking meatballs is not stated.",
+              "The amount of spaghetti is not stated.",
+              "The amount of water for boiling pasta is not stated.",
+              "The amount of cooking oil for sautéing is not stated."
+            ]
+          }
+        ]
+      },
+      "meta": {
+        "route": "youtube-video",
+        "platform": "youtube",
+        "video_id": "BDiBQUN_89I",
+        "canonical_url": "https://www.youtube.com/watch?v=BDiBQUN_89I",
+        "lang": "en",
+        "model": "google/gemini-2.5-flash",
+        "tokens": {
+          "prompt": 76986,
+          "completion": 7083,
+          "total": 84069
+        },
+        "cost_usd": 0.046543,
+        "ms": 40327,
+        "cached": false,
+        "created_at": "2026-11-24T12:32:21.420Z",
+        "stats": {
+          "recipes": 1,
+          "ingredients": 17,
+          "ingredients_stated": 0,
+          "steps": 25,
+          "timers": 1,
+          "cues": 6,
+          "gaps": 10
+        },
+        "fallbacks": [],
+        "adjustments": []
+      },
+      "source": {
+        "type": "youtube"
+      }
+    },
+    "hindi": {
+      "ok": true,
+      "result": {
+        "is_recipe": true,
+        "not_recipe_reason": null,
+        "video_notes": [
+          "The recipe features two tempering (tadka) steps: one mixed into the dal and a final one poured on top for garnish and flavor."
+        ],
+        "recipes": [
+          {
+            "title": "Dal Tadka",
+            "summary": "A popular restaurant-style lentil dish, cooked until soft and then tempered with aromatic spices and herbs.",
+            "servings": null,
+            "servings_stated": false,
+            "time_minutes": 40,
+            "equipment": [
+              "Pressure cooker",
+              "Large pan",
+              "Small tadka pan",
+              "Spoon",
+              "Ladle",
+              "Measuring cups and spoons"
+            ],
+            "ingredients": [
+              {
+                "group": "For cooking the dal",
+                "name": "Toor dal",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "cup",
+                "amount_text": null,
+                "note": "rinsed",
+                "stated": true
+              },
+              {
+                "group": "For cooking the dal",
+                "name": "Masoor dal",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": "rinsed",
+                "stated": true
+              },
+              {
+                "group": "For cooking the dal",
+                "name": "Turmeric powder",
+                "quantity": 0.25,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For cooking the dal",
+                "name": "Salt",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For cooking the dal",
+                "name": "Oil",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For cooking the dal",
+                "name": "Water",
+                "quantity": 1.5,
+                "quantity_max": null,
+                "unit": "cup",
+                "amount_text": null,
+                "note": "for pressure cooking",
+                "stated": true
+              },
+              {
+                "group": "For cooking the dal",
+                "name": "Water",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "cup",
+                "amount_text": null,
+                "note": "for adjusting consistency",
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Ghee (clarified butter)",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Cumin seeds",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Bay leaf",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Hing (asafoetida)",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "pinch",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Dried red chillies",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Garlic",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": "clove",
+                "amount_text": null,
+                "note": "crushed",
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Ginger",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "inch",
+                "amount_text": null,
+                "note": "crushed",
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Green chilli",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "slit",
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Onion",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "finely chopped",
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Turmeric powder",
+                "quantity": 0.25,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Chilli powder",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Coriander powder",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Salt",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the main tempering",
+                "name": "Tomato",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "finely chopped",
+                "stated": true
+              },
+              {
+                "group": "For finishing the dal",
+                "name": "Fresh coriander",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": "finely chopped",
+                "stated": true
+              },
+              {
+                "group": "For finishing the dal",
+                "name": "Kasuri methi",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": "crushed",
+                "stated": true
+              },
+              {
+                "group": "For finishing the dal",
+                "name": "Garam masala",
+                "quantity": 0.25,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the final tempering",
+                "name": "Ghee (clarified butter)",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the final tempering",
+                "name": "Cumin seeds",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the final tempering",
+                "name": "Hing (asafoetida)",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "pinch",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the final tempering",
+                "name": "Dried red chilli",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the final tempering",
+                "name": "Chilli powder",
+                "quantity": 0.25,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For the final tempering",
+                "name": "Fresh coriander",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": "finely chopped",
+                "stated": true
+              }
+            ],
+            "steps": [
+              {
+                "text": "Add toor dal, masoor dal, 1/4 tsp turmeric powder, 1/2 tsp salt, 1 tbsp oil, and 1.5 cups water to a pressure cooker.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 16
+              },
+              {
+                "text": "Close the pressure cooker and cook for five whistles.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "high",
+                "done_cue": "The dal is cooked well and soft.",
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 32
+              },
+              {
+                "text": "Open the pressure cooker and add 1 cup of water to adjust the dal's consistency, stirring well.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 44
+              },
+              {
+                "text": "Heat 2 tbsp ghee in a large pan.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [
+                  {
+                    "term": "Ghee",
+                    "meaning": "Clarified butter, often used in Indian cooking for its rich flavor."
+                  }
+                ],
+                "video_t": 51
+              },
+              {
+                "text": "Add 1/2 tsp cumin seeds, 1 bay leaf, a pinch of hing, and 2 dried red chillies to the hot ghee.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The spices splutter and become fragrant.",
+                "done_cue_added": false,
+                "terms": [
+                  {
+                    "term": "Splutter",
+                    "meaning": "When spices sizzle and pop in hot oil, releasing their aroma."
+                  }
+                ],
+                "video_t": 56
+              },
+              {
+                "text": "Add crushed garlic, crushed ginger, and slit green chilli to the pan and sauté well.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The garlic and ginger turn light golden and aromatic.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": 107
+              },
+              {
+                "text": "Add finely chopped onion to the pan and sauté until golden brown.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The onions turn golden brown.",
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 117
+              },
+              {
+                "text": "Add 1/4 tsp turmeric powder, 1/2 tsp chilli powder, 1/2 tsp coriander powder, and 1/2 tsp salt to the pan.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "low",
+                "done_cue": "The spices turn aromatic.",
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 129
+              },
+              {
+                "text": "Add finely chopped tomato to the pan and sauté until soft and mushy.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 142
+              },
+              {
+                "text": "Pour the cooked dal from the pressure cooker into the pan with the sautéed tempering.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 153
+              },
+              {
+                "text": "Mix well and adjust the consistency of the dal as needed.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 157
+              },
+              {
+                "text": "Simmer the dal for 5 minutes to allow the flavors to absorb.",
+                "timer_seconds": 300,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 204
+              },
+              {
+                "text": "Add 2 tbsp finely chopped fresh coriander, 1 tsp crushed kasuri methi, and 1/4 tsp garam masala to the dal and mix well.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 209
+              },
+              {
+                "text": "For the final tempering, heat 1 tsp ghee in a small tadka pan.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [
+                  {
+                    "term": "Tadka pan",
+                    "meaning": "A small pan used for tempering spices in hot oil or ghee."
+                  }
+                ],
+                "video_t": 229
+              },
+              {
+                "text": "Add 1/2 tsp cumin seeds, a pinch of hing, 1 dried red chilli, 1/4 tsp chilli powder, and 1 tsp finely chopped fresh coriander to the hot ghee.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The tempering splutters and becomes aromatic.",
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 232
+              },
+              {
+                "text": "Pour the spluttering tempering over the prepared dal.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 245
+              }
+            ],
+            "tips": [],
+            "gaps": [
+              "The number of servings is not stated.",
+              "The heat level for cooking the dal in the pressure cooker is not specified beyond 'five whistles'."
+            ]
+          }
+        ]
+      },
+      "meta": {
+        "route": "youtube-video",
+        "platform": "youtube",
+        "video_id": "XzKkkMdo7Jk",
+        "canonical_url": "https://www.youtube.com/watch?v=XzKkkMdo7Jk",
+        "lang": "en",
+        "model": "google/gemini-2.5-flash",
+        "tokens": {
+          "prompt": 58118,
+          "completion": 7349,
+          "total": 65467
+        },
+        "cost_usd": 0.039779,
+        "ms": 38506,
+        "cached": false,
+        "created_at": "2026-11-24T12:33:32.114Z",
+        "stats": {
+          "recipes": 1,
+          "ingredients": 30,
+          "ingredients_stated": 30,
+          "steps": 16,
+          "timers": 1,
+          "cues": 6,
+          "gaps": 2
+        },
+        "fallbacks": [],
+        "adjustments": []
+      },
+      "source": {
+        "type": "youtube"
+      }
+    },
+    "many": {
+      "ok": true,
+      "result": {
+        "is_recipe": true,
+        "not_recipe_reason": null,
+        "video_notes": [
+          "This video demonstrates a meal prep strategy to create components for 5 different meals (10 servings total) in about one hour.",
+          "The meal prep involves cooking lentil stew, pasta, tofu, couscous, and zucchini, as well as preparing a dressing and grating carrots, chopping spinach, and dicing tomatoes for storage.",
+          "To speed up the meal prep, the presenter recommends multitasking, such as chopping ingredients while others are cooking.",
+          "Keep a scrap bowl handy to maintain a clean work surface."
+        ],
+        "recipes": [
+          {
+            "title": "Hummus Pasta Salad",
+            "summary": "A fresh and wholesome pasta salad with hummus dressing, cooked zucchini, carrots, spinach, and tomatoes.",
+            "servings": 2,
+            "servings_stated": true,
+            "time_minutes": 5,
+            "equipment": [
+              "Large bowl"
+            ],
+            "ingredients": [
+              {
+                "group": null,
+                "name": "Cooked pasta",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "half of the total prepped",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Cooked zucchini",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "half of the total prepped",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Grated carrots",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "a third of the total prepped",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Fresh spinach",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "a handful",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Chopped tomato",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "all of the total prepped",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Fresh parsley",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "optional",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Hummus dressing",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "just over half of the total prepped",
+                "note": null,
+                "stated": true
+              }
+            ],
+            "steps": [
+              {
+                "text": "Grab a large bowl and add half of the cooked pasta to it.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 331
+              },
+              {
+                "text": "Add half of the cooked zucchini, a third of the grated carrots, a handful of spinach, and all of the chopped tomato to the bowl.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 334
+              },
+              {
+                "text": "Add some optional fresh parsley.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 342
+              },
+              {
+                "text": "Pour a generous portion (just over half) of the hummus dressing into the bowl.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 344
+              },
+              {
+                "text": "Stir all the ingredients together until well combined.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 347
+              },
+              {
+                "text": "Serve the hummus pasta salad.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 354
+              }
+            ],
+            "tips": [],
+            "gaps": [
+              "The exact quantity for a 'handful' of spinach is not stated.",
+              "The exact quantity for optional fresh parsley is not stated."
+            ]
+          },
+          {
+            "title": "Roasted Bell Pepper Pesto Sandwich",
+            "summary": "A hearty sandwich with toasted bread, hummus, pesto, spinach, roasted bell pepper, tofu, and avocado.",
+            "servings": 2,
+            "servings_stated": true,
+            "time_minutes": 5,
+            "equipment": [
+              "Pan"
+            ],
+            "ingredients": [
+              {
+                "group": null,
+                "name": "Oil",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "for toasting bread",
+                "stated": false
+              },
+              {
+                "group": null,
+                "name": "Bread",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": "slices",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Hummus",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "store-bought",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Vegan pesto",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "store-bought",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Fresh spinach",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "a handful",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Roasted bell pepper",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "or half if preferred",
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Cooked tofu",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "half of the total prepped",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Avocado",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "sliced",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Black pepper",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "optional",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Lemon juice",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "a little",
+                "note": null,
+                "stated": true
+              }
+            ],
+            "steps": [
+              {
+                "text": "Heat some oil in a pan.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 360
+              },
+              {
+                "text": "Toast two slices of bread in the pan until golden.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The bread should be golden brown and crispy.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": 362
+              },
+              {
+                "text": "Spread store-bought hummus and pesto generously on each slice of toasted bread.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 375
+              },
+              {
+                "text": "Layer a handful of fresh spinach on top of the hummus and pesto.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 380
+              },
+              {
+                "text": "Add one roasted bell pepper (or half if preferred) to each slice.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 383
+              },
+              {
+                "text": "Place half of the cooked tofu on top of the bell pepper.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 386
+              },
+              {
+                "text": "Add sliced avocado on top of the tofu.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 390
+              },
+              {
+                "text": "Optionally, crack some black pepper over the avocado.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 393
+              },
+              {
+                "text": "Squeeze a little lemon juice over the sandwich.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 395
+              },
+              {
+                "text": "Place the second slice of bread on top to complete the sandwich.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 396
+              }
+            ],
+            "tips": [
+              "If you can't find store-bought vegan pesto, you can make your own from scratch."
+            ],
+            "gaps": [
+              "The quantity of oil for toasting bread is not stated.",
+              "The exact quantity for store-bought hummus is not stated.",
+              "The exact quantity for store-bought vegan pesto is not stated.",
+              "The exact quantity for a 'handful' of fresh spinach is not stated.",
+              "The exact quantity for sliced avocado is not stated.",
+              "The exact quantity for optional black pepper is not stated.",
+              "The exact quantity for lemon juice is not stated."
+            ]
+          },
+          {
+            "title": "Lentil Harvest Bowl",
+            "summary": "A wholesome and customizable bowl with couscous, lentil stew, carrots, zucchini, tofu, and dressing.",
+            "servings": 2,
+            "servings_stated": true,
+            "time_minutes": 5,
+            "equipment": [
+              "Bowl"
+            ],
+            "ingredients": [
+              {
+                "group": null,
+                "name": "Couscous",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "half of the total prepped",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Lentil stew",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "cup",
+                "amount_text": null,
+                "note": "prepared",
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Grated carrots",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "half of the remaining prepped",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Cooked zucchini",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "half of the remaining prepped",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Cooked tofu",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "all of the remaining prepped",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Hummus dressing",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "remaining prepped",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Fresh parsley",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "optional",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Salt",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "optional",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "Black pepper",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "optional",
+                "note": null,
+                "stated": true
+              }
+            ],
+            "steps": [
+              {
+                "text": "Divide the couscous between two bowls.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 400
+              },
+              {
+                "text": "Add about 1 cup of the prepared lentil stew to each bowl.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 403
+              },
+              {
+                "text": "Add half of the remaining grated carrots and half of the remaining cooked zucchini to each bowl.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 405
+              },
+              {
+                "text": "Add all of the remaining cooked tofu to the bowls.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 410
+              },
+              {
+                "text": "Drizzle the remaining hummus dressing over the bowls, or serve some on the side.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 413
+              },
+              {
+                "text": "Optionally, sprinkle with fresh parsley, salt, and black pepper.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 417
+              },
+              {
+                "text": "Enjoy the bowl either cold or heated in the microwave.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": 419
+              }
+            ],
+            "tips": [],
+            "gaps": [
+              "The exact quantity for optional fresh parsley is not stated.",
+              "The exact quantity for optional salt is not stated.",
+              "The exact quantity for optional black pepper is not stated."
+            ]
+          }
+        ]
+      },
+      "meta": {
+        "route": "youtube-video",
+        "platform": "youtube",
+        "video_id": "ERysyFbJH7w",
+        "canonical_url": "https://www.youtube.com/watch?v=ERysyFbJH7w",
+        "lang": "en",
+        "model": "google/gemini-2.5-flash",
+        "tokens": {
+          "prompt": 180247,
+          "completion": 11119,
+          "total": 191366
+        },
+        "cost_usd": 0.095459,
+        "ms": 53359,
+        "cached": false,
+        "created_at": "2026-11-24T12:34:25.587Z",
+        "stats": {
+          "recipes": 3,
+          "ingredients": 26,
+          "ingredients_stated": 25,
+          "steps": 23,
+          "timers": 0,
+          "cues": 1,
+          "gaps": 12
+        },
+        "fallbacks": [],
+        "adjustments": []
+      },
+      "source": {
+        "type": "youtube"
+      }
+    },
+    "long": {
+      "ok": true,
+      "result": {
+        "is_recipe": true,
+        "not_recipe_reason": null,
+        "video_notes": [
+          "The video features Chef Ranveer Brar demonstrating an Indian-style Egg Fried Rice, which Uncle Roger reviews.",
+          "Chef Ranveer emphasizes chopping vegetables before cooking and cutting them to match the main ingredient size for even cooking.",
+          "Uncle Roger expresses skepticism about adding cabbage to fried rice for volume, sugar to fried rice, and water to omelette mixture.",
+          "Chef Ranveer advises against using Ajinomoto (MSG) for kids and pregnant ladies, citing memory loss concerns, which Uncle Roger disputes."
+        ],
+        "recipes": [
+          {
+            "title": "Indian Style Egg Fried Rice with Omelette Parcel and Sauce",
+            "summary": "A flavorful Indian-Chinese fusion egg fried rice, served with a savory sauce and wrapped in a thin omelette parcel.",
+            "servings": null,
+            "servings_stated": false,
+            "time_minutes": null,
+            "equipment": [
+              "Cutting board",
+              "Chef's knife",
+              "Large pot (for rice)",
+              "Large wok or frying pan (for fried rice)",
+              "Small saucepan (for sauce)",
+              "Small frying pan (for omelette)",
+              "Whisk",
+              "Spatula",
+              "Serving plates",
+              "Small bowl (for omelette parcel)"
+            ],
+            "ingredients": [
+              {
+                "group": "For Cooking Rice",
+                "name": "Sella basmati rice",
+                "quantity": 3,
+                "quantity_max": null,
+                "unit": "cup",
+                "amount_text": null,
+                "note": "soaked for 20 minutes",
+                "stated": true
+              },
+              {
+                "group": "For Cooking Rice",
+                "name": "Water",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For Cooking Rice",
+                "name": "Salt",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "to taste",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Cooking Rice",
+                "name": "Oil",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Oil",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Garlic cloves",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "chopped",
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Ginger",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": "peeled & finely chopped",
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Carrot",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "peeled & finely chopped",
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Cabbage",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "cup",
+                "amount_text": null,
+                "note": "finely chopped",
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Salt",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "to taste",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Sugar",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Green chillies",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "less spicy & finely chopped",
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Vinegar",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Eggs",
+                "quantity": 3,
+                "quantity_max": null,
+                "unit": "no",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "French beans",
+                "quantity": 0.25,
+                "quantity_max": null,
+                "unit": "cup",
+                "amount_text": null,
+                "note": "chopped",
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Cooked Rice",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "chilled for 1.5 hours",
+                "stated": false
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Light soy sauce",
+                "quantity": 1.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "White pepper powder",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "Spring onion",
+                "quantity": 0.25,
+                "quantity_max": null,
+                "unit": "cup",
+                "amount_text": null,
+                "note": "chopped",
+                "stated": true
+              },
+              {
+                "group": "For Egg Fried Rice",
+                "name": "White sesame seeds",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": "optional",
+                "stated": true
+              },
+              {
+                "group": "For Sauce Mixture",
+                "name": "Vinegar",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Sauce Mixture",
+                "name": "Light soy sauce",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Sauce Mixture",
+                "name": "Tomato ketchup",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Sauce Mixture",
+                "name": "Green chili sauce",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Sauce Mixture",
+                "name": "Water",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "cup",
+                "amount_text": null,
+                "note": "or chicken stock",
+                "stated": true
+              },
+              {
+                "group": "For Sauce Mixture",
+                "name": "Sugar",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "tsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Sauce Mixture",
+                "name": "Cornstarch",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "to thicken the sauce",
+                "stated": false
+              },
+              {
+                "group": "For Sauce",
+                "name": "Oil",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For Sauce",
+                "name": "Green chili",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "less spicy & chopped",
+                "stated": true
+              },
+              {
+                "group": "For Sauce",
+                "name": "Capsicum",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "finely chopped",
+                "stated": true
+              },
+              {
+                "group": "For Sauce",
+                "name": "Onion",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "finely chopped",
+                "stated": true
+              },
+              {
+                "group": "For Sauce",
+                "name": "Ginger",
+                "quantity": 0.5,
+                "quantity_max": null,
+                "unit": "inch",
+                "amount_text": null,
+                "note": "peeled & chopped",
+                "stated": true
+              },
+              {
+                "group": "For Sauce",
+                "name": "Garlic",
+                "quantity": 2,
+                "quantity_max": null,
+                "unit": "cloves",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Omelette",
+                "name": "Eggs",
+                "quantity": 3,
+                "quantity_max": null,
+                "unit": "no",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Omelette",
+                "name": "Water",
+                "quantity": 2,
+                "quantity_max": 3,
+                "unit": "tbsp",
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Omelette",
+                "name": "Salt",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "to taste",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": "For Omelette",
+                "name": "Coriander leaves",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "few",
+                "note": "finely chopped",
+                "stated": true
+              },
+              {
+                "group": "For Omelette",
+                "name": "Oil",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For Garnish",
+                "name": "Coriander sprig",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              },
+              {
+                "group": "For Garnish",
+                "name": "White sesame seeds",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": false
+              }
+            ],
+            "steps": [
+              {
+                "text": "Chop all vegetables: cabbage, onions, carrots, green bell pepper, green chilies, green beans, ginger, and garlic. Ensure cuts match the size of rice grains for even cooking.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Soak sella basmati rice in water for 20 minutes.",
+                "timer_seconds": 1200,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Bring a pot of water to a vigorous boil. Add salt to taste and 1/2 tbsp of oil to the boiling water.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "high",
+                "done_cue": "Water is vigorously boiling.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add the soaked rice to the vigorously boiling water. Cook until the rice is perfectly cooked and not sticky.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "high",
+                "done_cue": "Rice is cooked through and separate, not sticky.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Drain the cooked rice and spread it evenly on a tray. Chill in the fridge for 1 1/2 hours to make it firm for frying.",
+                "timer_seconds": 5400,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "Rice is cool and firm.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Heat 1 tbsp of oil in a wok or large frying pan over medium-high heat.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": "Oil is shimmering slightly.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add chopped garlic and ginger to the hot oil. Sauté until fragrant.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add finely chopped carrots and cabbage to the pan. Stir-fry until they start to soften slightly.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": "Vegetables are slightly softened.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Season with salt to taste and 1/2 tsp of sugar. Continue to stir-fry until the vegetables release their moisture and get a slightly darker shade.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": "Vegetables are slightly caramelized and a shade darker.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add chopped green chilies and 1/2 tsp of vinegar. Stir well.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Create a space in the center of the pan. Crack 3 eggs directly into the space and scramble them, mixing with the vegetables.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": "Eggs are cooked and mixed with vegetables.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add chopped French beans to the pan. Stir-fry for a minute.",
+                "timer_seconds": 60,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add the chilled cooked rice to the pan. Gently fold the rice with the vegetables and eggs, ensuring not to break the rice grains.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": "All ingredients are well combined.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Pour 1 1/2 tsp of light soy sauce and sprinkle 1 tsp of white pepper powder over the fried rice. Continue to gently fold.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add chopped spring onion and 1/2 tsp of white sesame seeds (optional). Give it a final gentle mix.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-high",
+                "done_cue": "Fried rice is thoroughly mixed and heated through.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Prepare the sauce mixture: In a bowl, combine 1/2 tbsp vinegar, 2 tbsp light soy sauce, 2 tbsp tomato ketchup, 1 tbsp green chili sauce, 1 cup water (or chicken stock), and 1/2 tsp sugar. Mix well.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "All sauce ingredients are combined.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Heat a small saucepan with a little oil. Add chopped green chili, capsicum, onion, ginger, and garlic. Sauté briefly until vegetables are slightly softened but not fully cooked.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium",
+                "done_cue": "Vegetables are slightly tender.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Pour the prepared sauce mixture into the saucepan with the sautéed vegetables. Bring to a simmer and thicken with a cornstarch slurry until it reaches desired consistency.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium",
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "For the omelette, crack 3 eggs into a bowl. Add 2-3 tbsp water, salt to taste, and finely chopped coriander leaves. Whisk until well combined.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "Egg mixture is smooth and frothy.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Heat a small frying pan with a little oil over medium-low heat. Pour a thin layer of the egg mixture into the pan, tilting to spread it evenly. Cook until set.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": "medium-low",
+                "done_cue": "Omelette is cooked through and easily separates from the pan.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Carefully remove the thin omelette from the pan and let it cool slightly to make it easier to handle.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "Omelette is cool enough to touch without breaking.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "To assemble the omelette parcel, place the cooled omelette into a small bowl, shaping it to form a cup. Fill the omelette cup with the prepared sauce.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Carefully fold the edges of the omelette over the sauce to create a parcel.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "Omelette is fully enclosed around the sauce.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Serve the fried rice mounded on a plate. Carefully place the egg parcel on top of the fried rice.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Cut the omelette parcel open to release the sauce over the fried rice. Garnish with a coriander sprig and white sesame seeds.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              }
+            ],
+            "tips": [
+              "Always chop vegetables before cooking Indo-Chinese cuisine.",
+              "Cut vegetables to match the size of the main ingredient (rice grains) for even cooking.",
+              "Adding a little oil to the rice water prevents grains from sticking together."
+            ],
+            "gaps": [
+              "The exact amount of water for cooking rice is not stated.",
+              "The cooking time for the rice is not specified, only that it should be boiled vigorously then simmered.",
+              "The quantity of cornstarch for thickening the sauce is not stated.",
+              "The amount of oil for sautéing the sauce vegetables is not stated.",
+              "The amount of salt for the omelette is not stated."
+            ]
+          }
+        ]
+      },
+      "meta": {
+        "route": "youtube-video",
+        "platform": "youtube",
+        "video_id": "5QJUdaUxm0s",
+        "canonical_url": "https://www.youtube.com/watch?v=5QJUdaUxm0s",
+        "lang": "en",
+        "model": "google/gemini-2.5-flash",
+        "tokens": {
+          "prompt": 231001,
+          "completion": 8249,
+          "total": 239250
+        },
+        "cost_usd": 0.107373,
+        "ms": 69985,
+        "cached": false,
+        "created_at": "2026-11-24T12:35:39.812Z",
+        "stats": {
+          "recipes": 1,
+          "ingredients": 40,
+          "ingredients_stated": 33,
+          "steps": 25,
+          "timers": 3,
+          "cues": 15,
+          "gaps": 5
+        },
+        "fallbacks": [],
+        "adjustments": [
+          "25 step times hidden because some were later than the video can be"
+        ]
+      },
+      "source": {
+        "type": "youtube"
+      }
+    },
+    "ig-caption": {
+      "ok": true,
+      "result": {
+        "is_recipe": true,
+        "not_recipe_reason": null,
+        "video_notes": [
+          "The video may be raw and unpolished, as the creator mentioned it was hastily put together."
+        ],
+        "recipes": [
+          {
+            "title": "Moong Dal Breakfast Patties",
+            "summary": "Healthy breakfast patties made from soaked and ground moong dal with vegetables.",
+            "servings": null,
+            "servings_stated": false,
+            "time_minutes": null,
+            "equipment": [
+              "uttampam pan",
+              "frying pan"
+            ],
+            "ingredients": [
+              {
+                "group": null,
+                "name": "yellow moong dal",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": "cup",
+                "amount_text": null,
+                "note": "for soaking",
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "ginger",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "for grinding",
+                "stated": false
+              },
+              {
+                "group": null,
+                "name": "red chillies",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "for grinding",
+                "stated": false
+              },
+              {
+                "group": null,
+                "name": "salt",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "for grinding",
+                "stated": false
+              },
+              {
+                "group": null,
+                "name": "curd",
+                "quantity": 1,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "baking powder",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "a pinch",
+                "note": null,
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "onions",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "chopped, for adding",
+                "stated": false
+              },
+              {
+                "group": null,
+                "name": "methi microgreens",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "chopped, for adding",
+                "stated": false
+              },
+              {
+                "group": null,
+                "name": "coriander",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": "lots",
+                "note": "chopped, for adding",
+                "stated": true
+              },
+              {
+                "group": null,
+                "name": "green chillies",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "chopped, for adding",
+                "stated": false
+              },
+              {
+                "group": null,
+                "name": "curry leaves",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "for adding",
+                "stated": false
+              },
+              {
+                "group": null,
+                "name": "chutney",
+                "quantity": null,
+                "quantity_max": null,
+                "unit": null,
+                "amount_text": null,
+                "note": "of choice, for serving",
+                "stated": false
+              }
+            ],
+            "steps": [
+              {
+                "text": "Soak the yellow moong dal for 4 to 5 hours.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Grind the soaked moong dal with ginger, red chillies, and salt.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The paste should be coarse and not too watery.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Leave the ground paste aside for 3 to 4 hours or overnight.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add curd and a pinch of baking powder to the paste.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Add your choice of vegetables, like chopped onions, methi microgreens, coriander, green chillies, and curry leaves.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Cook the mixture in an uttampam pan or shallow fry in a frying pan.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "When one side is browned, gently release it from the sides.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": "The edges should look browned and cooked.",
+                "done_cue_added": true,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Flip the patty and cook the other side before removing from heat.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              },
+              {
+                "text": "Enjoy with chutney of your choice.",
+                "timer_seconds": null,
+                "temperature": null,
+                "heat": null,
+                "done_cue": null,
+                "done_cue_added": false,
+                "terms": [],
+                "video_t": null
+              }
+            ],
+            "tips": [],
+            "gaps": [
+              "The amount of ginger is not stated.",
+              "The amount of red chillies is not stated.",
+              "The amount of salt is not stated.",
+              "The amount of onions is not stated.",
+              "The amount of methi microgreens is not stated.",
+              "The amount of green chillies is not stated.",
+              "The amount of curry leaves is not stated.",
+              "The cooking time is not stated.",
+              "The heat level for cooking is not stated."
+            ]
+          }
+        ]
+      },
+      "meta": {
+        "route": "instagram-caption",
+        "platform": "instagram",
+        "video_id": "C6EUaIyPwDg",
+        "canonical_url": "https://www.instagram.com/reel/C6EUaIyPwDg/",
+        "lang": "en",
+        "model": "google/gemini-2.5-flash-lite",
+        "tokens": {
+          "prompt": 1543,
+          "completion": 2649,
+          "total": 4192
+        },
+        "cost_usd": 0.001214,
+        "ms": 7710,
+        "cached": false,
+        "created_at": "2026-11-24T12:35:47.595Z",
+        "stats": {
+          "recipes": 1,
+          "ingredients": 12,
+          "ingredients_stated": 4,
+          "steps": 9,
+          "timers": 0,
+          "cues": 2,
+          "gaps": 9
+        },
+        "fallbacks": [],
+        "adjustments": []
+      },
+      "source": {
+        "type": "instagram-caption",
+        "caption_from": "embed",
+        "chars": 1350
+      }
+    }
+  }
 }
